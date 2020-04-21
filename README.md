@@ -6,4 +6,4 @@ The Articles plugin allows to display specific contents for PHOI stored inside C
 
 ## Example
 
-![Demo Animation](./documentation/article_phoi.png?raw=true)
+![Article page example](./documentation/article_phoi.png?raw=true)
