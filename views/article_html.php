@@ -48,18 +48,20 @@ $article = $this->getVar("article");
             $blocs = json_decode($article["blocs"], true);
 
             foreach ($blocs as $bloc):
+            	$bloc["content"] = str_replace("\\n", "", $bloc["content"]);
                 switch ($bloc["type"]):
-                    case "lead-dropcap": ?>
+                    case "lead-dropcap": 
+                    ?>
 
                         <article class="article-content">
-                            <p class="lead-dropcap"><?php _p($bloc["contenu"]); ?></p>
+                            <div class="lead-dropcap"><?php _p($bloc["content"]); ?></div>
                         </article>
 
                         <?php break;
-                    case "paragraphe": ?>
+                    case "paragraph": ?>
 
                         <article class="article-content">
-                            <?php _p($bloc["contenu"]); ?>
+                            <?php _p($bloc["content"]); ?>
                         </article>
 
                         <?php break;
@@ -95,23 +97,25 @@ $article = $this->getVar("article");
                                 <div class="column">
                                     <img src="<?php print $bloc["image"]; ?>" alt="image 5">
                                 </div>
-                                <?php print str_replace("&quo;", '"', $bloc["text"]); ?>
+                                <div class="column">
+                                <?php print str_replace("&quo;", '"', $bloc["content"]); ?>
+                                </div>
                             </div>
                         </article>
 
                         <?php break;
                     case "references":
-
                         print "<div class=\"article-content footnotes\">";
-                        if (sizeof($bloc["footnotes"]) > 0) {
-                            print "<h4>Références</h4><ol>";
-                            foreach ($bloc["footnotes"] as $footnote) {
-                                print "<li id=\"footnote{$footnote["num"]}\">{$footnote["content"]}</li>";
-                            }
-                            print "</ol>";
-                        }
+                        if ($bloc["footnote1"]) print "<h4>Références</h4><ol>";
+                        if ($bloc["footnote1"]) print "<li id=\"footnote1\">{$bloc["footnote1"]}</li>";
+                        if ($bloc["footnote2"]) print "<li id=\"footnote1\">{$bloc["footnote2"]}</li>";
+                        if ($bloc["footnote3"]) print "<li id=\"footnote1\">{$bloc["footnote3"]}</li>";
+                        if ($bloc["footnote4"]) print "<li id=\"footnote1\">{$bloc["footnote4"]}</li>";
+                        if ($bloc["footnote5"]) print "<li id=\"footnote1\">{$bloc["footnote5"]}</li>";
+                        if ($bloc["footnote6"]) print "<li id=\"footnote1\">{$bloc["footnote6"]}</li>";
+						if ($bloc["footnote1"]) print "</ol>";
                         print "<h4>Pour en savoir plus</h4>";
-                        print $bloc["notes"];
+                        print $bloc["content"];
                         print "</div>";
                         break;
                     default:
