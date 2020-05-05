@@ -42,6 +42,15 @@ class ShowController extends ActionController
     # -------------------------------------------------------
     public function Index($type = "")
     {
+	    $blocks = "";
+        for($id=1;$id<7;$id++) {
+            $page = new ca_site_pages($id);
+            $article = $page->get("content");
+            $this->view->setVar("article", $article);
+            $blocks .= $this->render("home_block_html.php", true);
+        }
+        //$page = new ca_site_pages(1);
+        $this->view->setVar("blocks", $blocks);
         $this->render('index_html.php');
     }
 
@@ -53,8 +62,8 @@ class ShowController extends ActionController
         $id= $this->request->getParameter("id", pInteger);
         // TODO Redirect if no ID
 
-        //$page = new ca_site_pages($id);
-        $page = new ca_site_pages(1);
+        $page = new ca_site_pages($id);
+        //$page = new ca_site_pages(1);
         $article = $page->get("content");
         $this->view->setVar("article", $article);
 
