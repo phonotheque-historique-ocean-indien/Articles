@@ -1,2 +1,7 @@
-<h1>views - Test</h1>
 <?php
+$blocks = $this->getVar("blocks");
+?>
+
+<h1 class="page-title">Articles</h1>
+
+<?php print $blocks; ?>
