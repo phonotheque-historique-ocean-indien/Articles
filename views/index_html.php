@@ -2,8 +2,6 @@
 $blocks = $this->getVar("blocks");
 ?>
 
-<h1> Titre </h1>
-
-...
+<h1 class="page-title">Articles</h1>
 
 <?php print $blocks; ?>

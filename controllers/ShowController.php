@@ -47,11 +47,11 @@ class ShowController extends ActionController
             $page = new ca_site_pages($id);
             $article = $page->get("content");
             $this->view->setVar("article", $article);
-            $blocks .= $this->render("article_block_html.php");
+            $blocks .= $this->render("article_block_html.php", true);
         }
         //$page = new ca_site_pages(1);
         //$article = $page->get("content");
-        $this->view->setVar("article", $article);
+        $this->view->setVar("blocks", $blocks);
         $this->render('index_html.php');
     }
 
