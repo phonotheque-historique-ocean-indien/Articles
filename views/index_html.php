@@ -57,6 +57,12 @@ $blocks = $this->getVar("blocks");
     <?php print $blocks; ?>
 </div>
 
+<div class="level">
+    <div class="level-item has-text-centered">
+        <button class="button action-btn more is-medium has-text-weight-bold">Charger plus d’articles</button>
+    </div>
+</div>
+
 <style>
     /* A intégrer proprement dans le PHOItheme */
     .columns {
