@@ -1,6 +1,6 @@
 <?php
 $article = $this->getVar("article");
-$bloc = $this->getVar("bloc");
+//var_dump($article["blocs"]); étudier structure pour appeler le contenu du lead-dropcap pour l'intégrer l.21
 ?>
 <div class="column is-one-third">
     <div class="card">
@@ -17,12 +17,12 @@ $bloc = $this->getVar("bloc");
                 </div>
                 <h2 class="card-title"><?php _p($article["title"]); ?></h2>
                 <h3 class="card-subtitle"><?php _p($article["subtitle"]); ?></h3>
-                <p>Une musique insulaire à tous points de vue, comme</p>
+                <p></p>
             </div>
         </div>
         <footer class="card-footer">
             <a href="./Details/id/1" class="card-footer-item">Lire l'article</a>
-<!--            <a href="./Details/id/--><?php //_p($article["page_id"]); ?><!--" class="card-footer-item">Lire l'article </a>-->
+<!--            <a href="./Details/id/--><?php //_p($article["id"]); ?><!--" class="card-footer-item">Lire l'article </a>-->
         </footer>
     </div>
 </div>
