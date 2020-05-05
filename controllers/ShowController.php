@@ -61,13 +61,25 @@ class ShowController extends ActionController
     public function Details() {
         $id= $this->request->getParameter("id", pInteger);
         // TODO Redirect if no ID
-
         $page = new ca_site_pages($id);
         //$page = new ca_site_pages(1);
         $article = $page->get("content");
         $this->view->setVar("article", $article);
 
         $this->render('article_html.php');
+    }
+
+    public function List() {
+        $listing = ca_site_pages::getPageList();
+        $listing = array_slice($listing, 0, 10);
+        $articles = [];
+        foreach($listing as $key=>$article_info) {
+            $article = new ca_site_pages($article_info["page_id"]);
+            $content = $article->get("ca_site_pages.content");
+            $articles[$key] = ["page_id"=>$article_info["page_id"], "title"=>$article_info["title"], "content"=>$content];
+        }
+        $this->view->setVar("articles", $articles);
+        $this->render('list_html.php');
     }
 }
 ?>
