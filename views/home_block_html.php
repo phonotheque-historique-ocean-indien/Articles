@@ -1,12 +1,6 @@
 <?php
 $article = $this->getVar("article");
 $id = $this->getVar("id");
-////echo "ok" .is_array($article["blocs"]) . "<br>"; pour vérifier qu'il s'agit d'un array
-//echo '<pre>';
-//print_r($article["blocs"]);
-////var_dump($article["blocs"]);
-//echo '<pre>';
-////echo $article["blocs"];
 $article["blocs"]=str_replace('\\\n',"",$article["blocs"]);
 $blocs=json_decode($article["blocs"],true);
 //var_dump($blocs);die();
@@ -35,7 +29,6 @@ if(mb_strlen($content)==119) {
             </div>
         </div>
         <footer class="card-footer">
-<!--            <a href="./Details/id/1" class="card-footer-item">Lire l'article</a>-->
             <a href="./Details/id/<?php _p($id); ?>" class="card-footer-item">Lire l'article </a>
         </footer>
     </div>
