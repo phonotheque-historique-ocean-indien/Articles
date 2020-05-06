@@ -28,10 +28,19 @@ class FrontController extends ActionController
     # -------------------------------------------------------
     public function Index($type = "")
     {
+        // Get  all the pages
+        $pages = ca_site_pages::getPageList();
+        // Reordering to have the newest at the beginning
+        $pages = array_reverse($pages);
+
+        // Getting only the first 3 of those
+        $pages = array_slice($pages, 0, 3);
+        
 	    $blocks = "";
-        for($id=1;$id<=3;$id++) {
-            $page = new ca_site_pages($id);
-            $article = $page->get("content");
+        // Limit to the 3 last ids
+        foreach($pages as $page) {
+            $vt_page = new ca_site_pages($page["page_id"]);
+            $article = $vt_page->get("content");
             $this->view->setVar("article", $article);
             $this->view->setVar("id", $id);
             $blocks .= $this->render("home_block_html.php", true);
