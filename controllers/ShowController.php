@@ -33,7 +33,6 @@ class ShowController extends ActionController
 	    $all_articles = array_reverse($all_articles);
 	    $articles = [];
 	    foreach ($all_articles as $testarticle) {
-
 	        if ($testarticle["template_title"]=="article") {
 //	            $articles = $testarticle;
 //	            array_push($articles, $testarticle);
@@ -81,6 +80,7 @@ class ShowController extends ActionController
         $this->view->setVar("blocks", $blocks);
         $this->render('all_articles_html.php');
     }
+
     public function Wall() {
         $this->render('index_html.php');
     }
