@@ -1,6 +1,11 @@
 <?php
 $article = $this->getVar("article");
-//var_dump($article["blocs"]); étudier structure pour appeler le contenu du lead-dropcap pour l'intégrer l.21
+//echo "ok" .is_array($article["blocs"]) . "<br>"; pour vérifier qu'il s'agit d'un array
+echo '<pre>';
+print_r($article["blocs"]);
+//var_dump($article["blocs"]);
+echo '<pre>';
+//echo $article["blocs"];
 ?>
 <div class="column is-one-third">
     <div class="card">
