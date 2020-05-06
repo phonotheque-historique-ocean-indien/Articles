@@ -1,18 +1,5 @@
 <?php
-/* ----------------------------------------------------------------------
- * simpleListEditor
- * ----------------------------------------------------------------------
- * List & list values editor plugin for Providence - CollectiveAccess
- * Open-source collections management software
- * ----------------------------------------------------------------------
- *
- * Plugin by idéesculture (www.ideesculture.com)
- * This plugin is published under GPL v.3. Please do not remove this header
- * and add your credits thereafter.
- *
- * File modified by :
- * ----------------------------------------------------------------------
- */
+
 ini_set("display_errors", 1);
 error_reporting(E_ERROR);
 require_once(__CA_MODELS_DIR__.'/ca_site_pages.php');
