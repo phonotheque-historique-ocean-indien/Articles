@@ -1,18 +1,5 @@
 <?php
-/* ----------------------------------------------------------------------
- * simpleListEditor
- * ----------------------------------------------------------------------
- * List & list values editor plugin for Providence - CollectiveAccess
- * Open-source collections management software
- * ----------------------------------------------------------------------
- *
- * Plugin by idéesculture (www.ideesculture.com)
- * This plugin is published under GPL v.3. Please do not remove this header
- * and add your credits thereafter.
- *
- * File modified by :
- * ----------------------------------------------------------------------
- */
+
 ini_set("display_errors", 1);
 error_reporting(E_ERROR);
 require_once(__CA_MODELS_DIR__.'/ca_site_pages.php');
@@ -42,12 +29,25 @@ class ShowController extends ActionController
     # -------------------------------------------------------
     public function Index($type = "")
     {
-	    $blocks = "";
-        for($id=1;$id<7;$id++) {
-            $page = new ca_site_pages($id);
+	    $all_articles = ca_site_pages::getPageList();
+	    $all_articles = array_reverse($all_articles);
+	    $articles = [];
+	    foreach ($all_articles as $testarticle) {
+
+	        if ($testarticle["template_title"]=="article") {
+//	            $articles = $testarticle;
+//	            array_push($articles, $testarticle);
+                $articles[] = $testarticle;
+            }
+        }
+	    $articles = array_splice($articles,0, 6);
+        $blocks = "";
+        foreach ($articles as $art) {
+//            var_dump($art);die();
+            $page = new ca_site_pages($art["page_id"]);
             $article = $page->get("content");
             $this->view->setVar("article", $article);
-            $this->view->setVar("id", $id);
+            $this->view->setVar("id", $art["page_id"]);
             $blocks .= $this->render("home_block_html.php", true);
         }
         //$page = new ca_site_pages(1);
@@ -55,6 +55,31 @@ class ShowController extends ActionController
         $this->render('index_html.php');
     }
 
+    public function All($type = "")
+    {
+        $all_articles = ca_site_pages::getPageList();
+        $all_articles = array_reverse($all_articles);
+        $articles = [];
+        foreach ($all_articles as $testarticle) {
+            if ($testarticle["template_title"]=="article") {
+//	            $articles = $testarticle;
+//	            array_push($articles, $testarticle);
+                $articles[] = $testarticle;
+            }
+        }
+        $blocks = "";
+        foreach ($articles as $art) {
+//            var_dump($art);die();
+            $page = new ca_site_pages($art["page_id"]);
+            $article = $page->get("content");
+            $this->view->setVar("article", $article);
+            $this->view->setVar("id", $art["page_id"]);
+            $blocks .= $this->render("home_block_html.php", true);
+        }
+        //$page = new ca_site_pages(1);
+        $this->view->setVar("blocks", $blocks);
+        $this->render('all_articles_html.php');
+    }
     public function Wall() {
         $this->render('index_html.php');
     }
@@ -71,15 +96,23 @@ class ShowController extends ActionController
     }
 
     public function List() {
-        $listing = ca_site_pages::getPageList();
-        $listing = array_slice($listing, 0, 10);
+        $all_articles = ca_site_pages::getPageList();
+        $all_articles = array_reverse($all_articles);
         $articles = [];
-        foreach($listing as $key=>$article_info) {
+        foreach ($all_articles as $testarticle) {
+            if ($testarticle["template_title"]=="article") {
+//	            $articles = $testarticle;
+//	            array_push($articles, $testarticle);
+                $articles[] = $testarticle;
+            }
+        }
+        $result=[];
+        foreach($articles as $key=>$article_info) {
             $article = new ca_site_pages($article_info["page_id"]);
             $content = $article->get("ca_site_pages.content");
-            $articles[$key] = ["page_id"=>$article_info["page_id"], "title"=>$article_info["title"], "content"=>$content];
+            $result[$key] = ["page_id"=>$article_info["page_id"], "title"=>$article_info["title"], "content"=>$content];
         }
-        $this->view->setVar("articles", $articles);
+        $this->view->setVar("articles", $result);
         $this->render('list_html.php');
     }
 }
