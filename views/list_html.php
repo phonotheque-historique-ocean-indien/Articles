@@ -37,7 +37,7 @@
             </div>
             <div class="dropdown-menu" id="dropdown-menu" role="menu">
                 <div class="dropdown-content">
-                    <a href="./Articles" class="dropdown-item">
+                    <a href="<?php print __CA_URL_ROOT__; ?>/index.php/Articles/Show/index" class="dropdown-item">
                         vignettes
                     </a>
                 </div>
