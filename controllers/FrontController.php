@@ -42,8 +42,9 @@ class FrontController extends ActionController
             $vt_page = new ca_site_pages($page["page_id"]);
             $article = $vt_page->get("content");
             $this->view->setVar("article", $article);
-            $this->view->setVar("id", $id);
-            $blocks .= $this->render("home_block_html.php", true);
+            $this->view->setVar("id", $page["page_id"]);
+            $this->view->setVar("template_title", $page["template_title"]);
+            $blocks .= $this->render("front/front_block_html.php", true);
         }
         //$page = new ca_site_pages(1);
         $this->view->setVar("blocks", $blocks);
