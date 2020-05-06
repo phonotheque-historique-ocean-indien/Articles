@@ -47,6 +47,7 @@ class ShowController extends ActionController
             $page = new ca_site_pages($id);
             $article = $page->get("content");
             $this->view->setVar("article", $article);
+            $this->view->setVar("id", $id);
             $blocks .= $this->render("home_block_html.php", true);
         }
         //$page = new ca_site_pages(1);
