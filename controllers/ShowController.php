@@ -29,12 +29,25 @@ class ShowController extends ActionController
     # -------------------------------------------------------
     public function Index($type = "")
     {
-	    $blocks = "";
-        for($id=1;$id<7;$id++) {
-            $page = new ca_site_pages($id);
+	    $all_articles = ca_site_pages::getPageList();
+	    $all_articles = array_reverse($all_articles);
+	    $articles = [];
+	    foreach ($all_articles as $testarticle) {
+
+	        if ($testarticle["template_title"]=="article") {
+//	            $articles = $testarticle;
+//	            array_push($articles, $testarticle);
+                $articles[] = $testarticle;
+            }
+        }
+	    $articles = array_splice($articles,0, 6);
+        $blocks = "";
+        foreach ($articles as $art) {
+//            var_dump($art);die();
+            $page = new ca_site_pages($art["page_id"]);
             $article = $page->get("content");
             $this->view->setVar("article", $article);
-            $this->view->setVar("id", $id);
+            $this->view->setVar("id", $art["page_id"]);
             $blocks .= $this->render("home_block_html.php", true);
         }
         //$page = new ca_site_pages(1);
@@ -42,6 +55,32 @@ class ShowController extends ActionController
         $this->render('index_html.php');
     }
 
+    public function All($type = "")
+    {
+        $all_articles = ca_site_pages::getPageList();
+        $all_articles = array_reverse($all_articles);
+        $articles = [];
+        foreach ($all_articles as $testarticle) {
+
+            if ($testarticle["template_title"]=="article") {
+//	            $articles = $testarticle;
+//	            array_push($articles, $testarticle);
+                $articles[] = $testarticle;
+            }
+        }
+        $blocks = "";
+        foreach ($articles as $art) {
+//            var_dump($art);die();
+            $page = new ca_site_pages($art["page_id"]);
+            $article = $page->get("content");
+            $this->view->setVar("article", $article);
+            $this->view->setVar("id", $art["page_id"]);
+            $blocks .= $this->render("home_block_html.php", true);
+        }
+        //$page = new ca_site_pages(1);
+        $this->view->setVar("blocks", $blocks);
+        $this->render('all_articles_html.php');
+    }
     public function Wall() {
         $this->render('index_html.php');
     }
