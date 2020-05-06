@@ -35,7 +35,7 @@ class FrontController extends ActionController
 
         // Getting only the first 3 of those
         $pages = array_slice($pages, 0, 3);
-        
+
 	    $blocks = "";
         // Limit to the 3 last ids
         foreach($pages as $page) {
