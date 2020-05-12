@@ -65,6 +65,14 @@ $article = $this->getVar("article");
                         </article>
 
                         <?php break;
+                    case "quote": ?>
+
+                        <article class="article-content">
+                            <div class="quote"><?php _p($bloc["content"]); ?></div>
+                        </article>
+
+
+                        <?php break;
                     case "image-is-fullsize":
                         ?>
 
