@@ -2,7 +2,7 @@
 $blocks = $this->getVar("blocks");
 ?>
 <nav class="breadcrumb has-succeeds-separator" aria-label="breadcrumbs">
-    <div class="container">
+    <div class="container all-articles-phoi">
         <ul class="ariane">
             <li><a href="/">Accueil</a></li>
             <li class="is-active"><a href="#" aria-current="page">Articles</a></li>
