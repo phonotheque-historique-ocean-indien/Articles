@@ -28,7 +28,7 @@ if(mb_strlen($content)==119) {
             </div>
         </div>
         <footer class="card-footer">
-            <a href="<?php _p(__CA_URL_ROOT__."/index.php/".$template_title."s/Show/Details/".$id); ?>" class="card-footer-item">Lire l'article </a>
+            <a href="<?php _p(__CA_URL_ROOT__."/index.php/".$template_title."s/Show/Details/id/".$id); ?>" class="card-footer-item">Lire l'article </a>
         </footer>
     </div>
 </div>
