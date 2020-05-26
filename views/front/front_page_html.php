@@ -9,3 +9,11 @@
 </div>
 
 
+<style>
+	.PODCAST {
+		background-color:#5DAE9C !important;
+	}
+	.EXPOSITION {
+		background-color:#EB9560 !important;
+	}
+	</style>

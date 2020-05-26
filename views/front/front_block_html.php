@@ -7,6 +7,7 @@ $blocs=json_decode($article["blocs"],true);
 //var_dump($blocs);die();
 $content= $blocs[1]["content"];
 $content=mb_substr($content,0,119);
+$categ=(strtoupper($template_title));
 if(mb_strlen($content)==119) {
     $content=$content."...";
 }
@@ -20,7 +21,7 @@ if(mb_strlen($content)==119) {
         </div>
         <div class="card-content">
             <div class="content">
-                <span class="tag is-primary"><?php _p((strtoupper($template_title))); ?></span>
+                <span class="tag is-primary <?php _p($categ); ?>"><?php _p($categ); ?></span>
                 <div class="pull-right"><?php _p($article["date"]); ?></div>
                 <h2><?php _p($article["title"]); ?></h2>
                 <h3><?php _p($article["subtitle"]); ?></h3>
@@ -32,3 +33,4 @@ if(mb_strlen($content)==119) {
         </footer>
     </div>
 </div>
+
