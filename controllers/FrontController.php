@@ -40,7 +40,7 @@ class FrontController extends ActionController
             $_SESSION["partie"] = "froide";
         }
         if($_SESSION["partie"] == "froide") {
-            $this->response->setRedirect(caNavUrl($this->request, "", "Phonotheque", "Partenaires"));
+            //$this->response->setRedirect(caNavUrl($this->request, "", "Phonotheque", "Partenaires"));
         }
         // Get  all the pages
         $pages = ca_site_pages::getPageList();
