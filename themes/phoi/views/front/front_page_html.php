@@ -115,38 +115,51 @@
         </div>
         <table class="table dataTable" id="alecoute" role="grid" style="background-color: transparent">
             <thead>
-            <tr role="row">
-                <th class="sorting_asc" tabindex="0" aria-controls="revueDePresse" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Titre: activer pour trier la colonne par ordre décroissant" style="width: 903px;">Album</th>
-                <th class="sorting" tabindex="0" aria-controls="revueDePresse" rowspan="1" colspan="1" aria-label="Date: activer pour trier la colonne par ordre croissant" style="width: 147px;">Artiste</th>
-                <th class="sorting" tabindex="0" aria-controls="revueDePresse" rowspan="1" colspan="1" aria-label="Auteur: activer pour trier la colonne par ordre croissant" style="width: 207px;">Auteur</th></tr>
+            <tr>
+                <th>Album</th>
+                <th>Artiste</th>
+                <th>Auteur</th>
+            </tr>
             </thead>
             <tbody>
-            <tr role="row" class="odd">
-                <td class="sorting_1"><a href="/index.php/Articles/Show/Details/id/5">Abdullah Ibrahim, la spiritualité faite musique</a></td>
+            <tr>
+                <td>Abdullah Ibrahim, la spiritualité faite musique</a></td>
                 <td>23.12.2018</td>
                 <td>Jonathan GRONDIN</td>
-            </tr><tr role="row" class="even">
-                <td class="sorting_1"><a href="/index.php/Articles/Show/Details/id/1">Alain Peters Rest’ la maloya</a></td>
+            </tr><tr>
+                <td><a href="/index.php/Articles/Show/Details/id/1">Alain Peters Rest’ la maloya</a></td>
                 <td>12.12.2019</td>
                 <td>Jonhatan Grondin</td>
-            </tr><tr role="row" class="odd">
-                <td class="sorting_1"><a href="/index.php/Articles/Show/Details/id/4">Dj Sebb, le maître réunionnais de la Gommance</a></td>
+            </tr><tr>
+                <td><a href="/index.php/Articles/Show/Details/id/4">Dj Sebb, le maître réunionnais de la Gommance</a></td>
                 <td>04.05.2020</td>
                 <td>Jonhatan Grondin</td>
-            </tr><tr role="row" class="even">
-                <td class="sorting_1"><a href="/index.php/Articles/Show/Details/id/2">Le séga réunionnais inscrit à l'inventaire national du Patrimoine Culturel Immatériel de France</a></td>
+            </tr><tr>
+                <td><a href="/index.php/Articles/Show/Details/id/2">Le séga réunionnais inscrit à l'inventaire national du Patrimoine Culturel Immatériel de France</a></td>
                 <td>JJ.MM.AAAA</td>
                 <td>Jonhatan Grondin</td>
-            </tr><tr role="row" class="odd">
-                <td class="sorting_1"><a href="/index.php/Articles/Show/Details/id/6">Pendant le IOMMA,  les femmes donnent le la !</a></td>
+            </tr><tr>
+                <td><a href="/index.php/Articles/Show/Details/id/6">Pendant le IOMMA,  les femmes donnent le la !</a></td>
                 <td>30.04.2020</td>
                 <td>Jonathan GRONDIN</td>
-            </tr><tr role="row" class="even">
+            </tr><tr>
                 <td class="sorting_1"><a href="/index.php/Articles/Show/Details/id/3">Siti &amp; The Band Le pouvoir aux femmes</a></td>
                 <td>28/04/2020</td>
                 <td>Julien LG</td>
             </tr></tbody>
         </table>
+        <link href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+        <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+        <script>
+            $(document).ready( function () {
+                $('#alecoute').DataTable({
+                    "language": {"url": "/datatables_french.json"},
+                    "info": false,
+                    "paging":   false,
+                    "searching": false
+                });
+            } );
+        </script>
     </div>
 
 </div>
@@ -157,37 +170,47 @@
         <table class="table dataTable" id="lastplaylists" role="grid" style="background-color: transparent">
             <thead>
             <tr role="row">
-                <th class="sorting_asc" tabindex="0" aria-controls="revueDePresse" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Titre: activer pour trier la colonne par ordre décroissant" style="width: 903px;">Album</th>
-                <th class="sorting" tabindex="0" aria-controls="revueDePresse" rowspan="1" colspan="1" aria-label="Date: activer pour trier la colonne par ordre croissant" style="width: 147px;">Artiste</th>
-                <th class="sorting" tabindex="0" aria-controls="revueDePresse" rowspan="1" colspan="1" aria-label="Auteur: activer pour trier la colonne par ordre croissant" style="width: 207px;">Auteur</th></tr>
+                <th>Album</th>
+                <th>Artiste</th>
+                <th>Auteur</th></tr>
             </thead>
             <tbody>
-            <tr role="row" class="odd">
-                <td class="sorting_1"><a href="/index.php/Articles/Show/Details/id/5">Abdullah Ibrahim, la spiritualité faite musique</a></td>
+            <tr>
+                <td><a href="/index.php/Articles/Show/Details/id/5">Abdullah Ibrahim, la spiritualité faite musique</a></td>
                 <td>23.12.2018</td>
                 <td>Jonathan GRONDIN</td>
-            </tr><tr role="row" class="even">
-                <td class="sorting_1"><a href="/index.php/Articles/Show/Details/id/1">Alain Peters Rest’ la maloya</a></td>
+            </tr><tr>
+                <td><a href="/index.php/Articles/Show/Details/id/1">Alain Peters Rest’ la maloya</a></td>
                 <td>12.12.2019</td>
                 <td>Jonhatan Grondin</td>
-            </tr><tr role="row" class="odd">
-                <td class="sorting_1"><a href="/index.php/Articles/Show/Details/id/4">Dj Sebb, le maître réunionnais de la Gommance</a></td>
+            </tr><tr>
+                <td><a href="/index.php/Articles/Show/Details/id/4">Dj Sebb, le maître réunionnais de la Gommance</a></td>
                 <td>04.05.2020</td>
                 <td>Jonhatan Grondin</td>
-            </tr><tr role="row" class="even">
-                <td class="sorting_1"><a href="/index.php/Articles/Show/Details/id/2">Le séga réunionnais inscrit à l'inventaire national du Patrimoine Culturel Immatériel de France</a></td>
+            </tr><tr>
+                <td><a href="/index.php/Articles/Show/Details/id/2">Le séga réunionnais inscrit à l'inventaire national du Patrimoine Culturel Immatériel de France</a></td>
                 <td>JJ.MM.AAAA</td>
                 <td>Jonhatan Grondin</td>
-            </tr><tr role="row" class="odd">
-                <td class="sorting_1"><a href="/index.php/Articles/Show/Details/id/6">Pendant le IOMMA,  les femmes donnent le la !</a></td>
+            </tr><tr>
+                <td><a href="/index.php/Articles/Show/Details/id/6">Pendant le IOMMA,  les femmes donnent le la !</a></td>
                 <td>30.04.2020</td>
                 <td>Jonathan GRONDIN</td>
-            </tr><tr role="row" class="even">
-                <td class="sorting_1"><a href="/index.php/Articles/Show/Details/id/3">Siti &amp; The Band Le pouvoir aux femmes</a></td>
+            </tr><tr>
+                <td><a href="/index.php/Articles/Show/Details/id/3">Siti &amp; The Band Le pouvoir aux femmes</a></td>
                 <td>28/04/2020</td>
                 <td>Julien LG</td>
             </tr></tbody>
         </table>
+        <script>
+            $(document).ready( function () {
+                $('#lastplaylists').DataTable({
+                    "language": {"url": "/datatables_french.json"},
+                    "info": false,
+                    "paging":   false,
+                    "searching": false
+                });
+            } );
+        </script>
         <div style="text-align:center;padding:4px 0 40px 0;">
             <button class="button is-primary" style="background-color: #e4675f;padding:12px 70px;font-size:1.3em;">Voir plus de playlists</button>
         </div>
