@@ -34,6 +34,14 @@ class FrontController extends ActionController
     # -------------------------------------------------------
     public function Index($type = "")
     {
+        // Detecting through Session if we are in "partie froide" or "partie chaude"
+        session_start();
+        if(filter_var($_GET["partie"], FILTER_SANITIZE_STRING) == "froide") {
+            $_SESSION["partie"] = "froide";
+        }
+        if($_SESSION["partie"] == "froide") {
+            $this->response->setRedirect(caNavUrl($this->request, "", "Phonotheque", "Partenaires"));
+        }
         // Get  all the pages
         $pages = ca_site_pages::getPageList();
         // Reordering to have the newest at the beginning
