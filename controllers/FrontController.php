@@ -11,6 +11,7 @@ class FrontController extends ActionController
     protected $opa_listIdsFromIdno; // list of lists
     protected $opa_locale; // locale id
     private $opo_list;
+    private $plugin_path;
     # -------------------------------------------------------
     # Constructor
     # -------------------------------------------------------
@@ -18,9 +19,14 @@ class FrontController extends ActionController
     public function __construct(&$po_request, &$po_response, $pa_view_paths = null)
     {
         parent::__construct($po_request, $po_response, $pa_view_paths);
+        $this->plugin_path = __CA_APP_DIR__ . '/plugins/Articles';
 
         $this->opo_config = Configuration::load(__CA_APP_DIR__ . '/plugins/Articles/conf/articles.conf');
 
+        // Extracting theme name to properly handle views in distinct theme dirs
+        $vs_theme_dir = explode("/", $po_request->getThemeDirectoryPath());
+        $vs_theme = end($vs_theme_dir);
+        $this->opa_view_paths[] = $this->plugin_path."/themes/".$vs_theme."/views";
     }
 
     # -------------------------------------------------------
