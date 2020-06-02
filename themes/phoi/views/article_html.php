@@ -42,7 +42,7 @@ $article = $this->getVar("article");
                 </div>
             </div>
             <div>
-                <img src="<?php _p($article["image"]); ?>" alt="image 1">
+                <img src="<?php _p($article["image"]); ?>" alt="image 1" style="width:100%;height:auto;">
             </div>
             <?php
             $blocs = json_decode($article["blocs"], true);
@@ -140,11 +140,17 @@ $article = $this->getVar("article");
         <h1>Playlists associées</h1>
     </section>
 
-    <section class="section" id="now-playing">
-        <h1>À l’écoute</h1>
-    </section>
-
-    <iframe id="audio-player" style="width:100%;height:1170px;" src="http://phoi.ideesculture.test/index.php/AudioPlayer/v/Embed">
-    </iframe>
-
 </div>
+</div>
+<iframe id="audio-player" style="width:100%;height:690px;overflow: hidden;" src="http://phoi.ideesculture.test/index.php/AudioPlayer/v/Embed">
+</iframe>
+<style>
+    #audio-player,
+    #audio-player html,
+    #audio-player body {
+        overflow: hidden;
+        scroll-behavior: unset;
+    }
+</style>
+<div>
+
