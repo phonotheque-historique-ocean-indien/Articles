@@ -144,4 +144,7 @@ $article = $this->getVar("article");
         <h1>À l’écoute</h1>
     </section>
 
+    <iframe id="audio-player" style="width:100%;height:1170px;" src="http://phoi.ideesculture.test/index.php/AudioPlayer/v/Embed">
+    </iframe>
+
 </div>
