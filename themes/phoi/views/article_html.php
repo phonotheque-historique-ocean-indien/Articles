@@ -142,7 +142,7 @@ $article = $this->getVar("article");
 
 </div>
 </div>
-<iframe id="audio-player" style="width:100%;height:690px;overflow: hidden;" src="http://phoi.ideesculture.test/index.php/AudioPlayer/v/Embed">
+<iframe id="audio-player" style="width:100%;height:690px;overflow: hidden;" src="/index.php/AudioPlayer/v/Embed">
 </iframe>
 <style>
     #audio-player,
