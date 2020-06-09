@@ -12,14 +12,14 @@ if(mb_strlen($content)==119) {
     $content=$content."...";
 }
 ?>
-<div class="column is-one-third">
+<div class="column is-one-third home-articles">
     <div class="card">
-        <div class="card-image">
+        <div class="card-image" onClick='window.location.href = "<?php _p(__CA_URL_ROOT__."/index.php/".ucfirst($template_title)."s/Show/Details/id/".$id); ?>";return false;'>
             <figure class="image is-3by2">
                 <img src="<?php _p($article["image"]); ?>" alt="image thumbnail">
             </figure>
         </div>
-        <div class="card-content">
+        <div class="card-content" onClick=' window.location.href = "<?php _p(__CA_URL_ROOT__."/index.php/".ucfirst($template_title)."s/Show/Details/id/".$id); ?>";return false;'>
             <div class="content">
                 <span class="tag is-primary <?php _p($categ); ?>"><?php _p($categ); ?></span>
                 <div class="pull-right"><?php _p($article["date"]); ?></div>

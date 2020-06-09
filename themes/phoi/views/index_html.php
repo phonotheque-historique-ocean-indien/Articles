@@ -67,3 +67,9 @@ $blocks = $this->getVar("blocks");
         </div>
     </div>
 </div>
+
+<style>
+	.index-articles-phoi .card-content {
+		cursor: pointer;
+	}
+</style>

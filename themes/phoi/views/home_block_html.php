@@ -14,10 +14,12 @@ if(mb_strlen($content)==119) {
     <div class="card">
         <div class="card-image">
             <figure class="image is-3by2">
+            <a href="./Details/id/<?php _p($id); ?>">
                 <img src="<?php _p($article["image"]); ?>" alt="image thumbnail">
+            </a>
             </figure>
         </div>
-        <div class="card-content">
+        <div class="card-content"  onClick='window.location.href = "./Details/id/<?php _p($id); ?>";return false;'>
             <div class="content" style="height:210px">
                 <div class="card-details">
                     <p class="author"><?php _p($article["author"]); ?></p>

@@ -23,3 +23,10 @@
 </iframe>
 
     <div>
+	    
+<style>
+.home-articles .card-image,
+.home-articles .card-content {
+		cursor:pointer;
+}
+</style>	    

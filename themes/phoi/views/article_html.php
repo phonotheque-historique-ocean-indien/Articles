@@ -1,5 +1,6 @@
 <?php
 $article = $this->getVar("article");
+$id = $this->getVar("id");
 ?>
 <div class="article-phoi">
     <nav class="breadcrumb has-succeeds-separator" aria-label="breadcrumbs">
@@ -19,7 +20,7 @@ $article = $this->getVar("article");
                     <span class="icon"><i class="mdi mdi-plus"></i></span>&nbsp; Nouveau
                 </button>
             </a>
-            <a href="/index.php/Contribuer/Pages/EditForm/template/article/id/1">
+            <a href="/index.php/Contribuer/Pages/EditForm/template/article/id/<?= $id ?>">
             <button class="button action-btn add-new is-uppercase has-text-centered">
                 <span class="icon"><i class="mdi mdi-lead-pencil"></i></span>&nbsp; Modifier
             </button>
@@ -142,7 +143,7 @@ $article = $this->getVar("article");
 
 </div>
 </div>
-<iframe id="audio-player" style="width:100%;height:690px;overflow: hidden;" src="/index.php/AudioPlayer/v/Embed">
+<iframe id="audio-player" style="width:100%;height:690px;overflow: hidden;" src="/index.php/AudioPlayer/V/Embed">
 </iframe>
 <style>
     #audio-player,
