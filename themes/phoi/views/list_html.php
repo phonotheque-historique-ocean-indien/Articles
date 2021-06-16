@@ -1,34 +1,38 @@
-<?php $articles = $this->getVar("articles");
+<?php
+$is_redactor = $this->getVar("is_redactor");
+$articles = $this->getVar("articles");
 //var_dump($articles);die();
 ?>
 <nav class="breadcrumb has-succeeds-separator" aria-label="breadcrumbs">
     <div class="container">
         <ul class="ariane">
-            <li><a href="/">Accueil</a></li>
-            <li class="is-active"><a href="#" aria-current="page">Articles</a></li>
+            <li><a href="/"><?php _p("Accueil"); ?></a></li>
+            <li class="is-active"><a href="#" aria-current="page"><?php _p("Articles"); ?></a></li>
         </ul>
     </div>
 </nav>
 
-<h1 class="page-title">Articles</h1>
+<h1 class="page-title"><?php _p("Articles"); ?></h1>
 
 
 <div class="display-options level is-flex-desktop">
     <div class="level-left">
+        <?php if($is_redactor): ?>
         <button class="button action-btn add-new is-uppercase has-text-centered">
-      <span class="icon">
-        <i class="mdi mdi-plus"></i>
-      </span>
-            &nbsp Nouveau
+          <span class="icon">
+            <i class="mdi mdi-plus"></i>
+          </span>
+            &nbsp <?php _p("Nouveau"); ?>
         </button>
+        <?php endif; ?>
     </div>
     <div class="level-right">
         <div class="dropdown is-hoverable">
             <div class="dropdown-trigger">
                 <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
           <span>
-            <p class="level-item">présentation par &nbsp
-              <em class="has-text-weight-semibold">liste</em>
+            <p class="level-item"><?php _p("présentation par"); ?> &nbsp
+              <em class="has-text-weight-semibold"><?php _p("liste"); ?></em>
           </span>
                     <span class="icon red">
             <i class="fa fa-caret-down"></i>
@@ -38,7 +42,7 @@
             <div class="dropdown-menu" id="dropdown-menu" role="menu">
                 <div class="dropdown-content">
                     <a href="<?php print __CA_URL_ROOT__; ?>/index.php/Articles/Show/index" class="dropdown-item">
-                        vignettes
+                        <?php _p("vignettes"); ?>
                     </a>
                 </div>
             </div>
@@ -62,22 +66,22 @@
 <table class="table" id="revueDePresse">
     <thead>
     <tr>
-        <th>Titre</th>
-        <th>Date</th>
-        <th>Auteur</th>
+        <th><?php _p("Titre"); ?></th>
+        <th><?php _p("Date"); ?></th>
+        <th><?php _p("Auteur"); ?></th>
     </tr>
     </thead>
     <tfoot>
     <tr>
-        <th>Titre</th>
-        <th>Date</th>
-        <th>Auteur</th>
+        <th><?php _p("Titre"); ?></th>
+        <th><?php _p("Date"); ?></th>
+        <th><?php _p("Auteur"); ?></th>
     </tr>
     </tfoot>
     <tbody>
     <?php foreach($articles as $key=>$article): ?>
         <tr>
-            <td><a href="<?php print __CA_URL_ROOT__; ?>/index.php/Articles/Show/Details/id/<?php print $article['page_id']; ?>"><?php print $article["content"]["title"]." ".$article["content"]["subtitle"]; ?></a></td>
+            <td><a href="<?php print __CA_URL_ROOT__; ?>/index.php/Articles/Show/Details/id/<?php print $article['page_id']; ?>"><?php print $article["title"]; ?></a></td>
             <td><?php print $article["content"]["date"]; ?></td>
             <td><?php print $article["content"]["author"]; ?></td>
         </tr>
