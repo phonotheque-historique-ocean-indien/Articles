@@ -1,5 +1,6 @@
 <?php
 $blocks = $this->getVar("blocks");
+$is_redactor = $this->getVar("is_redactor");
 ?>
 
 <div class="index-articles-phoi">
@@ -15,15 +16,18 @@ $blocks = $this->getVar("blocks");
     <h1 class="page-title">Articles</h1>
     <div class="display-options level is-flex-desktop">
         <div class="level-left">
-            <a href="/index.php/Contribuer/Pages/Form/template/article">
+        <?php if($is_redactor): ?>
+        <a href="/index.php/Contribuer/Pages/New/template_id/1">
                 <button class="button action-btn add-new is-uppercase has-text-centered">
 	      <span class="icon">
 	        <i class="mdi mdi-plus"></i>
-	      </span>
+	        </span>
                     &nbsp Nouveau
                 </button>
             </a>
+            <?php endif; ?>
         </div>
+
         <div class="level-right">
             <p class="level-item">trier par &nbsp
                 <em class="has-text-weight-semibold">le plus récent</em>
@@ -67,3 +71,9 @@ $blocks = $this->getVar("blocks");
         </div>
     </div>
 </div>
+
+<style>
+	.index-articles-phoi .card-content {
+		cursor: pointer;
+	}
+</style>

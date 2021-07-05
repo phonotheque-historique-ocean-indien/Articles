@@ -47,18 +47,23 @@ class FrontController extends ActionController
         // Reordering to have the newest at the beginning
         $pages = array_reverse($pages);
 
-        // Getting only the first 3 of those
-        $pages = array_slice($pages, 0, 3);
-
 	    $blocks = "";
-        // Limit to the 3 last ids
+        $i = 1;
+        
         foreach($pages as $page) {
+            // Limit to the 3 last ids
+            if($i>3) break;
+
             $vt_page = new ca_site_pages($page["page_id"]);
+            // Skip non published articles
+            if(!$vt_page->get("access")) continue;
+            
             $article = $vt_page->get("content");
             $this->view->setVar("article", $article);
             $this->view->setVar("id", $page["page_id"]);
             $this->view->setVar("template_title", $page["template_title"]);
             $blocks .= $this->render("front/front_block_html.php", true);
+            $i++;
         }
         //$page = new ca_site_pages(1);
         $this->view->setVar("blocks", $blocks);
