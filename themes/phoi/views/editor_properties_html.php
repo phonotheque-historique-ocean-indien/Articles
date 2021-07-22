@@ -1,28 +1,29 @@
 <?php
-$is_redactor = $this->getVar("is_redactor");
-$access = $this->getVar("access");
-$article = $this->getVar("article");
-$id = $this->getVar("id");
-$article["image"] = str_replace("https://phoi.ideesculture.fr/", "/", $article["image"]);
 
-// Check if article is programmed in the past
-$is_past = false;
-if($article["date_to"]) {
-    $date_to = substr($article["date_to"], 6, 4)."-".substr($article["date_to"], 3, 2)."-".substr($article["date_to"], 0, 2);
-    // Ignore if the article is to be published in the future
-    if(time() > strtotime($date_to)) $is_past = true;
-}
-// Check if article is programmed in the past
-$is_future = false;
-if($article["date_from"]) {
-    $date_from = substr($article["date_from"], 6, 4)."-".substr($article["date_from"], 3, 2)."-".substr($article["date_from"], 0, 2);
-    // Ignore if the article is to be published in the future
-    if(time() < strtotime($date_from)) $is_future = true;
-}
+    $is_redactor = $this->getVar("is_redactor");
+    $access = $this->getVar("access");
+    $article = $this->getVar("article");
+    $lang = $this->getVar("lang");
+    $langs = explode(",", $lang);
+    $titre = $this->getVar("titre");
+    $id = $this->getVar("id");
+    $article["image"] = str_replace("https://phoi.ideesculture.fr/", "/", $article["image"]);
 
-// Test if $article["blocs"] is in older format or ok
-$blocs = json_decode($article["blocs"], 1);
-$is_older_format = ($blocs["time"] === null);
+
+    // Check if article is programmed in the past
+    $is_past = false;
+    if($article["date_to"]) {
+        $date_to = substr($article["date_to"], 6, 4)."-".substr($article["date_to"], 3, 2)."-".substr($article["date_to"], 0, 2);
+        // Ignore if the article is to be published in the future
+        if(time() > strtotime($date_to)) $is_past = true;
+    }
+    // Check if article is programmed in the past
+    $is_future = false;
+    if($article["date_from"]) {
+        $date_from = substr($article["date_from"], 6, 4)."-".substr($article["date_from"], 3, 2)."-".substr($article["date_from"], 0, 2);
+        // Ignore if the article is to be published in the future
+        if(time() < strtotime($date_from)) $is_future = true;
+    }
 
 ?>
 <div class="article-phoi" style="margin-bottom:120px;">
@@ -54,6 +55,7 @@ $is_older_format = ($blocs["time"] === null);
                     <span class="icon"><i class="mdi mdi-lead-pencil"></i></span>&nbsp; <?php _p("Éditeur"); ?>
                 </button>
             </a>
+
             <button class="button action-btn add-new is-uppercase has-text-centered is-dark" onClick="$('#delete').show();">
                 <span class="icon"><i class="mdi mdi-delete"></i></span>&nbsp; <?php _p("Supprimer"); ?>
             </button>
@@ -119,7 +121,6 @@ $is_older_format = ($blocs["time"] === null);
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/paragraph@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/simple-image@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/delimiter@latest"></script>
@@ -144,26 +145,141 @@ $is_older_format = ($blocs["time"] === null);
                 </div>
             </div>
             <div>
-                <img src="<?= $article["image"] ?>" alt="image 1" style="width:100%;height:auto;">
-            </div>
 
-            <?php if($is_older_format): ?>
-                <div style="margin:70px;font-weight: bold;font-size:1.6em;">Ces blocs sont dans un précédent format. Vous ne pouvez pas éditer cet article.<br/>Merci de vous rapprocher de l'administrateur de la base.</div>
-            <?php else: ?>
-                <iframe src="/upload/manual.php" style="width:100%;height:46px;"></iframe>
-                <div id="editorjs"></div>
-            <?php endif; ?>
+            </div>
         </div>
     </div>
-    <?php if(!$is_older_format): ?>
-        <div class="container">
-            <div class="ce-block__content">
-                <button class="button is-primary" onclick="articleSave()">Enregistrer</button>
-                <button class="button" onclick="display()">Afficher</button>
-            </div>
-
+<form action="/index.php/Articles/Editor/SaveArticleProperties/id/<?= $id ?>" method="post">
+    <div class="field is-horizontal">
+        <div class="field-label is-normal">
+            <label class="label">Langues</label>
         </div>
-    <?php endif; ?>
+        <div class="field-body">
+            <div class="field">
+                <div class="buttons">
+                    <button class="button is-primary lang-button <?= (in_array("en",$langs) ? "" : "is-inverted") ?>" data-lang="en">EN</button>
+                    <button class="button is-primary lang-button <?= (in_array("fr",$langs) ? "" : "is-inverted") ?>" data-lang="fr">FR</button>
+                    <button class="button is-primary lang-button <?= (in_array("my",$langs) ? "" : "is-inverted") ?>" data-lang="my">MY</button>
+                    <button class="button is-primary lang-button <?= (in_array("si",$langs) ? "" : "is-inverted") ?>" data-lang="si">SI</button>
+                    <input id="lang" class="<?= implode(" ", $langs) ?>" type="hidden" name="keywords" placeholder="Langues" value="<?= $lang ?>">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="field is-horizontal">
+        <div class="field-label is-normal">
+            <label class="label">Titre (onglet navigateur)</label>
+        </div>
+        <div class="field-body">
+            <div class="field">
+                <p class="control">
+                    <input class="input" name="titre" type="text" placeholder="Titre (onglet navigateur)" value="<?= $titre ?>">
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="field is-horizontal">
+        <div class="field-label is-normal">
+            <label class="label">Titre (affichage)</label>
+        </div>
+        <div class="field-body">
+            <div class="field">
+                <p class="control">
+                    <input class="input" name="titredisplay" type="text" placeholder="Titre (affichage)" value="<?= $article["title"] ?>">
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="field is-horizontal">
+        <div class="field-label is-normal">
+            <label class="label">Sous-titre</label>
+        </div>
+        <div class="field-body">
+            <div class="field">
+                <p class="control">
+                    <input class="input" type="text" name="soustitre" placeholder="Sous-titre" value="<?= $article["subtitle"] ?>">
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="field is-horizontal">
+        <div class="field-label is-normal">
+            <label class="label">Auteur</label>
+        </div>
+        <div class="field-body">
+            <div class="field">
+                <p class="control">
+                    <input class="input" type="text" name="auteur" placeholder="Auteur" value="<?= $article["author"] ?>">
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="field is-horizontal">
+        <div class="field-label is-normal">
+            <label class="label">Date (affichage)</label>
+        </div>
+        <div class="field-body">
+            <div class="field">
+                <p class="control">
+                    <input class="input" type="text" name="date" placeholder="Date" value="<?= $article["date"] ?>">
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="field is-horizontal">
+        <div class="field-label is-normal">
+            <label class="label">Image principale (URL)</label>
+        </div>
+        <div class="field-body">
+            <div class="field">
+                <p class="control">
+                    <input class="input" type="text" name="image" placeholder="URL image" value="<?= $article["image"] ?>">
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="field is-horizontal">
+        <div class="field-label is-normal">
+            <label class="label">Date (from)</label>
+        </div>
+        <div class="field-body">
+            <div class="field">
+                <p class="control">
+                    <input class="input" type="text" name="date_from" placeholder="Date (from)" value="<?= $article["date_from"] ?>">
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="field is-horizontal">
+        <div class="field-label is-normal">
+            <label class="label">Date (to)</label>
+        </div>
+        <div class="field-body">
+            <div class="field">
+                <p class="control">
+                    <input class="input" type="text" name="date_to" placeholder="Date (to)" value="<?= $article["date_to"] ?>">
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="field is-horizontal" style="padding-top:40px;">
+        <div class="field-label is-normal">
+        </div>
+        <div class="field-body">
+            <button class="button is-primary" type="submit">Enregistrer</button>
+        </div>
+    </div>
+
+
+</form>
 <?php endif; ?>
 </div>
     </div>
@@ -173,62 +289,21 @@ $is_older_format = ($blocs["time"] === null);
 </section>
 </div>
 
-    <script>
+<script>
+    $(document).ready(function() {
+       $(".lang-button").on("click", function(event) {
+           //$(this).prop('disabled', true);
+           event.preventDefault();
+           console.log($(this).data("lang"));
+           $("#lang").toggleClass($(this).data("lang"));
+           $(this).toggleClass("is-inverted");
+           console.log($("#lang").attr("class").split(" ").join(","));
+           $("#lang").val($("#lang").attr("class").split(" ").join(","));
 
-        const editor = new EditorJS({
-                holder: 'editorjs',
+       });
+    });
+</script>
 
-                /**
-                 * Available Tools list.
-                 * Pass Tool's class or Settings object for each Tool you want to use
-                 */
-                tools: {
-                    header: Header,
-                    delimiter: Delimiter,
-                    paragraph: {
-                        class: Paragraph,
-                        inlineToolbar: true
-                    },
-                    list:{
-                      class: List,
-                      inlineToolbar: true
-                    },
-                    embed: Embed,
-                    image: SimpleImage,
-                    quote: {
-                        class: Quote,
-                        inlineToolbar: true,
-                        config: {
-                            quotePlaceholder: 'Enter a quote',
-                            captionPlaceholder: 'Quote\'s author',
-                        },
-                    }
-                },
-                data:
-                    <?= $article["blocs"] ?>
-            }
-        );
-        function articleSave(){
-            editor.save().then((output) => {
-                //console.log('Data: ', output);
-                //console.log(JSON.stringify(output));
-                $.ajax({
-                    method: "POST",
-                    url: "<?php print __CA_URL_ROOT__; ?>/index.php/Articles/Editor/SaveArticleJson/id/<?= $id ?>",
-                    data: output
-                })
-                .done(function( result ) {
-                        console.log("result");
-                        console.log(result);
-                });
-            }).catch((error) => {
-                console.log('Saving failed: ', error)
-            });
-        }
-        function display() {
-            window.location="<?= __CA_URL_ROOT__?>/index.php/Articles/Display/Details/id/<?= $id ?>";
-        }
-    </script>
     <style>
         h1{
             text-align: center;
