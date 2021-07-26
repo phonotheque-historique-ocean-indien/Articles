@@ -112,6 +112,13 @@ $is_older_format = ($blocs["time"] === null);
             <p>Cet article n'est pas encore publié et ne peut être affiché que par les rédacteurs du site.</p>
         </div>
     </section>
+<?php else: ?>
+    <section class="section" id="article">
+        <div class="container">
+            <h2>Editeur d'article</h2>
+            <p>Vous devez être connecté en tant que rédacteur pour pouvoir modifier cet article.</p>
+        </div>
+    </section>
 <?php endif; ?>
 <?php if($is_redactor): ?>
     <section class="section" id="article">
@@ -120,15 +127,17 @@ $is_older_format = ($blocs["time"] === null);
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/paragraph@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/simple-image@latest"></script>
+    <script src="<?= __CA_URL_ROOT__ ?>/app/plugins/Articles/lib/editorjs-simpleimage-left-right/simpleimage-left-right.js"></script>
+    <script src="<?= __CA_URL_ROOT__ ?>/app/plugins/Articles/lib/simple-image-tutorial-master/simple-image.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/delimiter@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/quote@latest"></script>
 
 
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://dev.phoi.io/themes/phoi/assets/pawtucket/css/theme.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="<?= __CA_URL_ROOT__ ?>/app/plugins/Articles/lib/editorjs-simpleimage-left-right/simpleimage-left-right.css">
+    <link rel="stylesheet" href="<?= __CA_URL_ROOT__ ?>/app/plugins/Articles/lib/simple-image-tutorial-master/simple-image.css">
+    <!-- <link rel="stylesheet" href="style.css"> -->
 
     <div class="container">
         <div class="article-phoi">
@@ -194,7 +203,11 @@ $is_older_format = ($blocs["time"] === null);
                       inlineToolbar: true
                     },
                     embed: Embed,
-                    image: SimpleImage,
+                    image: {
+                        class:SimpleImage,
+                        inlineToolbar: true
+                    },
+                    imageparagraph: SimpleImageLeftRight,
                     quote: {
                         class: Quote,
                         inlineToolbar: true,
@@ -205,21 +218,34 @@ $is_older_format = ($blocs["time"] === null);
                     }
                 },
                 data:
-                    <?= $article["blocs"] ?>
+                    <?= $article["blocs"] ?>,
+                onReady: () => {
+                    console.log('Editor.js is ready to work!');
+                    console.log("Initial data :", <?= $article["blocs"] ?>);
+                    // GM : Next lines are a DEBUG for stretched CSS class added on the wrapper.
+                    $(".stretched").parent().parent().addClass("ce-block--stretched");
+                    $(".simple-image").not(".stretched").parent().parent().removeClass("ce-block--stretched");
+                }
             }
         );
+        console.log('Data: ', output);
         function articleSave(){
             editor.save().then((output) => {
-                //console.log('Data: ', output);
+                console.log('Data: ', output);
                 //console.log(JSON.stringify(output));
                 $.ajax({
                     method: "POST",
                     url: "<?php print __CA_URL_ROOT__; ?>/index.php/Articles/Editor/SaveArticleJson/id/<?= $id ?>",
-                    data: output
+                    data: output,
+                    dataType: "json"
                 })
                 .done(function( result ) {
                         console.log("result");
-                        console.log(result);
+                        console.log(output.blocks[4]);
+                        //console.log(output);
+                        if(result.result == "ok") {
+                            //alert("Article enregistré");
+                        }
                 });
             }).catch((error) => {
                 console.log('Saving failed: ', error)
@@ -228,6 +254,10 @@ $is_older_format = ($blocs["time"] === null);
         function display() {
             window.location="<?= __CA_URL_ROOT__?>/index.php/Articles/Display/Details/id/<?= $id ?>";
         }
+
+        jQuery(document).ready(function() {
+            $(".stretched").parent().parent().addClass("ce-block--stretched");
+        })
     </script>
     <style>
         h1{
