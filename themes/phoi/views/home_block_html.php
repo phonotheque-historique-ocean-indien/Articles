@@ -7,6 +7,7 @@ $article["blocs"]=str_replace('\\\n',"",$article["blocs"]);
 $blocs=json_decode($article["blocs"],true);
 //var_dump($blocs);die();
 $content= $blocs[1]["content"];
+$content= strip_tags($content);
 $content=mb_substr($content,0,119);
 if(mb_strlen($content)==119) {
     $content=$content."...";
