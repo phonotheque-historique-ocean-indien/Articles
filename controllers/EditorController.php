@@ -98,18 +98,19 @@ class EditorController extends ActionController
 
     public function SaveArticleJson() {
         $id= $this->request->getParameter("id", pInteger);
-        print $id;
         // TODO Redirect if no ID
         $page = new ca_site_pages($id);
         $page->setMode(ACCESS_WRITE);
         $article = $page->get("content");
         $article["blocs"]=json_encode($_POST);
+        $article["blocs"]=str_replace('"false"',"false",$article["blocs"]);
+        $article["blocs"]=str_replace('"true"',"true",$article["blocs"]);
         $page->set("content", $article);
         $page->update();
         if($page->numErrors()) {
             print json_encode(["result"=>"ko", "errors"=>json_encode($page->getErrors())]);
         } else {
-            print json_encode(["result"=>"ok"]);
+            print json_encode(["result"=>"ok", "id"=>$id]);
         }
     }
 
