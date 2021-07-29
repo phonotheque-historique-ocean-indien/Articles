@@ -149,6 +149,7 @@ class ShowController extends ActionController
         $id= $this->request->getParameter("id", pInteger);
         // TODO Redirect if no ID
         $page = new ca_site_pages($id);
+        $this->view->setVar("page", $page);
         //$page = new ca_site_pages(1);
         $article = $page->get("content");
         
