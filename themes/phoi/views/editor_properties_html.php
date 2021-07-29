@@ -3,12 +3,14 @@
     $is_redactor = $this->getVar("is_redactor");
     $access = $this->getVar("access");
     $article = $this->getVar("article");
+    $page = $this->getVar("page");
+    $template_id = $page->get("template_id");
+    //var_dump($page->get("template_id"));die();
     $lang = $this->getVar("lang");
     $langs = explode(",", $lang);
     $titre = $this->getVar("titre");
     $id = $this->getVar("id");
     $article["image"] = str_replace("https://phoi.ideesculture.fr/", "/", $article["image"]);
-
 
     // Check if article is programmed in the past
     $is_past = false;
@@ -25,8 +27,23 @@
         if(time() < strtotime($date_from)) $is_future = true;
     }
 
+    switch($template_id) {
+        case "2":
+            $template = "exposition";
+            break;
+        case "3":
+            $template = "playlist";
+            break;
+        case "4":
+            $template = "podcast";
+            break;
+        default :
+            $template = "article";
+            break;
+    }
+    $old_path = ucfirst($template)."s";
 ?>
-<div class="article-phoi" style="margin-bottom:120px;">
+<div class="<?= $template ?>-phoi" style="margin-bottom:120px;">
     <nav class="breadcrumb has-succeeds-separator" aria-label="breadcrumbs">
         <div class="container">
             <ul class="ariane">
@@ -162,6 +179,23 @@
                     <button class="button is-primary lang-button <?= (in_array("my",$langs) ? "" : "is-inverted") ?>" data-lang="my">MY</button>
                     <button class="button is-primary lang-button <?= (in_array("si",$langs) ? "" : "is-inverted") ?>" data-lang="si">SI</button>
                     <input id="lang" class="<?= implode(" ", $langs) ?>" type="hidden" name="keywords" placeholder="Langues" value="<?= $lang ?>">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="field is-horizontal">
+        <div class="field-label is-normal">
+            <label class="label">Type</label>
+        </div>
+        <div class="field-body">
+            <div class="field">
+                <div class="select">
+                    <select name="template_id">
+                        <option value="1" <?= ( $template_id == 1 ? 'selected' : '') ?>>Article</option>
+                        <option value="2" <?= ( $template_id == 2 ? 'selected' : '') ?>>Exposition</option>
+                        <option value="4" <?= ( $template_id == 4 ? 'selected' : '') ?>>Podcast</option>
+                        <option value="3" <?= ( $template_id == 3 ? 'selected' : '') ?>>Playlist</option>
+                    </select>
                 </div>
             </div>
         </div>

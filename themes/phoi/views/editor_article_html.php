@@ -2,6 +2,7 @@
 $is_redactor = $this->getVar("is_redactor");
 $access = $this->getVar("access");
 $article = $this->getVar("article");
+$page = $this->getVar("page");
 $id = $this->getVar("id");
 $article["image"] = str_replace("https://phoi.ideesculture.fr/", "/", $article["image"]);
 
@@ -24,8 +25,24 @@ if($article["date_from"]) {
 $blocs = json_decode($article["blocs"], 1);
 $is_older_format = ($blocs["time"] === null);
 
+$template_id=$page->get('template_id');
+switch($template_id) {
+    case "2":
+        $template = "exposition";
+        break;
+    case "3":
+        $template = "playlist";
+        break;
+    case "4":
+        $template = "podcast";
+        break;
+    default :
+        $template = "article";
+        break;
+}
+$old_path = ucfirst($template)."s";
 ?>
-<div class="article-phoi" style="margin-bottom:120px;">
+<div class="<?= $template ?>-phoi" style="margin-bottom:120px;">
     <nav class="breadcrumb has-succeeds-separator" aria-label="breadcrumbs">
         <div class="container">
             <ul class="ariane">
@@ -52,6 +69,11 @@ $is_older_format = ($blocs["time"] === null);
             <a href="/index.php/Articles/Editor/Article/id/<?= $id ?>" class="active">
                 <button class="button action-btn add-new is-uppercase has-text-centered">
                     <span class="icon"><i class="mdi mdi-lead-pencil"></i></span>&nbsp; <?php _p("Éditeur"); ?>
+                </button>
+            </a>
+            <a href="/index.php/Articles/Display/Details/id/<?= $id ?>" class="active">
+                <button class="button action-btn add-new is-uppercase has-text-centered">
+                    <span class="icon"><i class="mdi mdi-eye"></i></span>&nbsp; <?php _p("Afficher"); ?>
                 </button>
             </a>
             <button class="button action-btn add-new is-uppercase has-text-centered is-dark" onClick="$('#delete').show();">
@@ -129,6 +151,7 @@ $is_older_format = ($blocs["time"] === null);
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
     <!-- <script src="<?= __CA_URL_ROOT__ ?>/app/plugins/Articles/lib/editorjs-simpleimage-left-right/simpleimage-left-right.js"></script> -->
     <script src="<?= __CA_URL_ROOT__ ?>/app/plugins/Articles/lib/ideesculture-editorjs-image/simple-image.js"></script>
+    <script src="<?= __CA_URL_ROOT__ ?>/app/plugins/Articles/lib/editorjs-audio/simple-audio.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/delimiter@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/quote@latest"></script>
@@ -137,6 +160,7 @@ $is_older_format = ($blocs["time"] === null);
     <link rel="stylesheet" href="https://dev.phoi.io/themes/phoi/assets/pawtucket/css/theme.css">
     <!-- <link rel="stylesheet" href="<?= __CA_URL_ROOT__ ?>/app/plugins/Articles/lib/editorjs-simpleimage-left-right/simpleimage-left-right.css"> -->
     <link rel="stylesheet" href="<?= __CA_URL_ROOT__ ?>/app/plugins/Articles/lib/ideesculture-editorjs-image/simple-image.css">
+    <link rel="stylesheet" href="<?= __CA_URL_ROOT__ ?>/app/plugins/Articles/lib/editorjs-audio/simple-audio.css">
     <!-- <link rel="stylesheet" href="style.css"> -->
 
     <div class="container">
@@ -207,6 +231,10 @@ $is_older_format = ($blocs["time"] === null);
                         class:IdeescultureEditorjsImage,
                         inlineToolbar: true
                     },
+                    simpleaudio: {
+                        class:SimpleAudio,
+                        inlineToolbar: true
+                    },
                     //imageparagraph: SimpleImageLeftRight,
                     quote: {
                         class: Quote,
@@ -231,7 +259,6 @@ $is_older_format = ($blocs["time"] === null);
                     $(".simple-image").parent().removeClass("floatLeft");
                     $('.simple-image.floatLeft').parent().addClass('floatLeft');
                     $('.simple-image.floatRight').parent().addClass('floatRight');
-
                 }
             }
         );
