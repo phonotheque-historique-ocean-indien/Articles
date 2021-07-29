@@ -80,6 +80,7 @@ class EditorController extends ActionController
         $force = $this->request->getParameter("force", pInteger);
         // TODO Redirect if no ID
         $page = new ca_site_pages($id);
+        $this->view->setVar("page", $page);
         //$page = new ca_site_pages(1);
         $article = $page->get("content");
 
@@ -125,6 +126,7 @@ class EditorController extends ActionController
         // TODO Redirect if no ID
         $page = new ca_site_pages($id);
         //$page = new ca_site_pages(1);
+        $this->view->setVar("page", $page);
         $article = $page->get("content");
         $lang = $page->get("keywords");
         $titre = $page->get("title");
