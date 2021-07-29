@@ -152,6 +152,7 @@ $old_path = ucfirst($template)."s";
     <!-- <script src="<?= __CA_URL_ROOT__ ?>/app/plugins/Articles/lib/editorjs-simpleimage-left-right/simpleimage-left-right.js"></script> -->
     <script src="<?= __CA_URL_ROOT__ ?>/app/plugins/Articles/lib/ideesculture-editorjs-image/simple-image.js"></script>
     <script src="<?= __CA_URL_ROOT__ ?>/app/plugins/Articles/lib/editorjs-audio/simple-audio.js"></script>
+        <script src="<?= __CA_URL_ROOT__ ?>/app/plugins/Articles/lib/editorjs-video/simple-video.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/delimiter@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/quote@latest"></script>
@@ -161,6 +162,7 @@ $old_path = ucfirst($template)."s";
     <!-- <link rel="stylesheet" href="<?= __CA_URL_ROOT__ ?>/app/plugins/Articles/lib/editorjs-simpleimage-left-right/simpleimage-left-right.css"> -->
     <link rel="stylesheet" href="<?= __CA_URL_ROOT__ ?>/app/plugins/Articles/lib/ideesculture-editorjs-image/simple-image.css">
     <link rel="stylesheet" href="<?= __CA_URL_ROOT__ ?>/app/plugins/Articles/lib/editorjs-audio/simple-audio.css">
+        <link rel="stylesheet" href="<?= __CA_URL_ROOT__ ?>/app/plugins/Articles/lib/editorjs-video/simple-video.css">
     <!-- <link rel="stylesheet" href="style.css"> -->
 
     <div class="container">
@@ -235,6 +237,10 @@ $old_path = ucfirst($template)."s";
                         class:SimpleAudio,
                         inlineToolbar: true
                     },
+                    simplevideo: {
+                        class:SimpleVideo,
+                        inlineToolbar: true
+                    },
                     //imageparagraph: SimpleImageLeftRight,
                     quote: {
                         class: Quote,
@@ -262,7 +268,6 @@ $old_path = ucfirst($template)."s";
                 }
             }
         );
-        console.log('Data: ', output);
         function articleSave(){
             editor.save().then((output) => {
                 console.log('Data: ', output);
