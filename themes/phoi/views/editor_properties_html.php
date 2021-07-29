@@ -48,7 +48,7 @@
         <div class="container">
             <ul class="ariane">
                 <li><a href="/"><?php _p("Accueil"); ?></a></li>
-                <li><a href="/index.php/Articles/Show/index"><?php _p("Articles"); ?></a></li>
+                <li><a href="/index.php/Articles/Show/index"><?php _p($old_path); ?></a></li>
                 <li class="is-active"><a href="#" aria-current="page"><?php _p($article["title"] . " " . $article["subtitle"]); ?></a>
                 </li>
             </ul>
