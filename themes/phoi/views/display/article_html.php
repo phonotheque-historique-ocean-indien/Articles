@@ -2,6 +2,7 @@
 $is_redactor = $this->getVar("is_redactor");
 $access = $this->getVar("access");
 $article = $this->getVar("article");
+$page = $this->getVar("page");
 $id = $this->getVar("id");
 $article["image"] = str_replace("https://phoi.ideesculture.fr/", "/", $article["image"]);
 
@@ -20,13 +21,29 @@ if($article["date_from"]) {
     if(time() < strtotime($date_from)) $is_future = true;
 }
 
+$template_id=$page->get('template_id');
+switch($template_id) {
+    case "2":
+        $template = "exposition";
+        break;
+    case "3":
+        $template = "playlist";
+        break;
+    case "4":
+        $template = "podcast";
+        break;
+    default :
+        $template = "article";
+        break;
+}
+$old_path = ucfirst($template)."s";
 ?>
-<div class="article-phoi">
+<div class="<?= $template ?>-phoi">
     <nav class="breadcrumb has-succeeds-separator" aria-label="breadcrumbs">
         <div class="container">
             <ul class="ariane">
                 <li><a href="/"><?php _p("Accueil"); ?></a></li>
-                <li><a href="/index.php/Articles/Show/index"><?php _p("Articles"); ?></a></li>
+                <li><a href="/index.php/Articles/Show/index"><?php _p($old_path); ?></a></li>
                 <li class="is-active"><a href="#" aria-current="page"><?php _p($article["title"] . " " . $article["subtitle"]); ?></a>
                 </li>
             </ul>
