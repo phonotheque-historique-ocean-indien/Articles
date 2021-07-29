@@ -1,5 +1,6 @@
 <?php
 $is_redactor = $this->getVar("is_redactor");
+$page = $this->getVar("page");
 $access = $this->getVar("access");
 $article = $this->getVar("article");
 $id = $this->getVar("id");
@@ -20,13 +21,30 @@ if($article["date_from"]) {
     if(time() < strtotime($date_from)) $is_future = true;
 }
 
+$template_id = $page->get("template_id");
+switch($template_id) {
+    case "2":
+        $template = "exposition";
+        break;
+    case "3":
+        $template = "playlist";
+        break;
+    case "4":
+        $template = "podcast";
+        break;
+    default :
+        $template = "article";
+        break;
+}
+$old_path = ucfirst($template)."s";
+
 ?>
-<div class="article-phoi">
+<div class="<?= $template ?>-phoi">
     <nav class="breadcrumb has-succeeds-separator" aria-label="breadcrumbs">
         <div class="container">
             <ul class="ariane">
                 <li><a href="/"><?php _p("Accueil"); ?></a></li>
-                <li><a href="/index.php/Articles/Show/index"><?php _p("Articles"); ?></a></li>
+                <li><a href="/index.php/<?= $old_path ?>/Show/index"><?php _p($old_path); ?></a></li>
                 <li class="is-active"><a href="#" aria-current="page"><?php _p($article["title"] . " " . $article["subtitle"]); ?></a>
                 </li>
             </ul>
@@ -61,21 +79,21 @@ if($article["date_from"]) {
                     <p>Êtes vous sur de vouloir supprimer ce contenu ?</p>
                     </section>
                     <footer class="modal-card-foot">
-                        <a href="/index.php/Articles/Show/Delete/id/<?= $id ?>"><button class="button is-danger">Supprimer</button>
+                        <a href="/index.php/<?= $old_path ?>/Show/Delete/id/<?= $id ?>"><button class="button is-danger">Supprimer</button>
                         <button class="button" onClick="$('#delete').hide();">Annuler</button>
                     </footer>
                 </div>
             </div>
 
             <?php if(!$access): ?>
-                <a href="/index.php/Articles/Show/Publish/id/<?= $id ?>">
+                <a href="/index.php/<?= $old_path ?>/Show/Publish/id/<?= $id ?>">
                     <button class="button action-btn add-new is-uppercase has-text-centered">
                         <span class="icon"><i class="mdi mdi-publish"></i></span>&nbsp; <?php _p("Publier"); ?>
                     </button>
                 </a>
                 <span class="tag is-warning" style="margin-top:10px;margin-left:12px;">BROUILLON</span> 
             <?php else : ?>
-                <a href="/index.php/Articles/Show/Unpublish/id/<?= $id ?>">
+                <a href="/index.php/<?= $old_path ?>/Show/Unpublish/id/<?= $id ?>">
                 <button class="button action-btn add-new is-uppercase has-text-centered">
                     <span class="icon"><i class="mdi mdi-lead-pencil"></i></span>&nbsp; <?php _p("Dépublier"); ?>
                 </button>
