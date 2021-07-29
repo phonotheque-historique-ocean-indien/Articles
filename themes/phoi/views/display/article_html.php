@@ -257,6 +257,15 @@ $old_path = ucfirst($template)."s";
                         print $bloc["content"];
                         print "</div>";
                         break;
+                    case "simplevideo":
+                        ?>
+                        <div style="max-width:700px;margin:0 auto;">
+                            <video controls style="width:100%;">
+                                <source src="<?= $bloc["data"]["url"] ?>" type="video/mp4">
+                            </video>
+                        </div>
+                        <?php
+                        break;
                     default:
                         var_dump($bloc);die();
 
@@ -291,9 +300,6 @@ $old_path = ucfirst($template)."s";
 	    list-style: circle;
     }
 
-    .article-header.level {
-        display:block !important;
-    }
     .article-content li {
         padding-bottom:12px;
     }
