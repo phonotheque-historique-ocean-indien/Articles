@@ -127,7 +127,7 @@ $is_older_format = ($blocs["time"] === null);
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/paragraph@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
-    <script src="<?= __CA_URL_ROOT__ ?>/app/plugins/Articles/lib/editorjs-simpleimage-left-right/simpleimage-left-right.js"></script>
+    <!-- <script src="<?= __CA_URL_ROOT__ ?>/app/plugins/Articles/lib/editorjs-simpleimage-left-right/simpleimage-left-right.js"></script> -->
     <script src="<?= __CA_URL_ROOT__ ?>/app/plugins/Articles/lib/simple-image-tutorial-master/simple-image.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/delimiter@latest"></script>
@@ -135,7 +135,7 @@ $is_older_format = ($blocs["time"] === null);
 
 
     <link rel="stylesheet" href="https://dev.phoi.io/themes/phoi/assets/pawtucket/css/theme.css">
-    <link rel="stylesheet" href="<?= __CA_URL_ROOT__ ?>/app/plugins/Articles/lib/editorjs-simpleimage-left-right/simpleimage-left-right.css">
+    <!-- <link rel="stylesheet" href="<?= __CA_URL_ROOT__ ?>/app/plugins/Articles/lib/editorjs-simpleimage-left-right/simpleimage-left-right.css"> -->
     <link rel="stylesheet" href="<?= __CA_URL_ROOT__ ?>/app/plugins/Articles/lib/simple-image-tutorial-master/simple-image.css">
     <!-- <link rel="stylesheet" href="style.css"> -->
 
@@ -203,11 +203,11 @@ $is_older_format = ($blocs["time"] === null);
                       inlineToolbar: true
                     },
                     embed: Embed,
-                    image: {
+                    simpleimage: {
                         class:SimpleImage,
                         inlineToolbar: true
                     },
-                    imageparagraph: SimpleImageLeftRight,
+                    //imageparagraph: SimpleImageLeftRight,
                     quote: {
                         class: Quote,
                         inlineToolbar: true,
@@ -225,6 +225,13 @@ $is_older_format = ($blocs["time"] === null);
                     // GM : Next lines are a DEBUG for stretched CSS class added on the wrapper.
                     $(".stretched").parent().parent().addClass("ce-block--stretched");
                     $(".simple-image").not(".stretched").parent().parent().removeClass("ce-block--stretched");
+                    $(".ce-paragraph").not(".stretched").parent().parent().removeClass("ce-block--stretched");
+                    // GM : required for float left & right image options
+                    $(".simple-image").parent().removeClass("floatRight");
+                    $(".simple-image").parent().removeClass("floatLeft");
+                    $('.simple-image.floatLeft').parent().addClass('floatLeft');
+                    $('.simple-image.floatRight').parent().addClass('floatRight');
+
                 }
             }
         );
