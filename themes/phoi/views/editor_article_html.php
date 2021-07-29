@@ -128,7 +128,7 @@ $is_older_format = ($blocs["time"] === null);
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/paragraph@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
     <!-- <script src="<?= __CA_URL_ROOT__ ?>/app/plugins/Articles/lib/editorjs-simpleimage-left-right/simpleimage-left-right.js"></script> -->
-    <script src="<?= __CA_URL_ROOT__ ?>/app/plugins/Articles/lib/simple-image-tutorial-master/simple-image.js"></script>
+    <script src="<?= __CA_URL_ROOT__ ?>/app/plugins/Articles/lib/ideesculture-editorjs-image/simple-image.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/delimiter@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/quote@latest"></script>
@@ -136,7 +136,7 @@ $is_older_format = ($blocs["time"] === null);
 
     <link rel="stylesheet" href="https://dev.phoi.io/themes/phoi/assets/pawtucket/css/theme.css">
     <!-- <link rel="stylesheet" href="<?= __CA_URL_ROOT__ ?>/app/plugins/Articles/lib/editorjs-simpleimage-left-right/simpleimage-left-right.css"> -->
-    <link rel="stylesheet" href="<?= __CA_URL_ROOT__ ?>/app/plugins/Articles/lib/simple-image-tutorial-master/simple-image.css">
+    <link rel="stylesheet" href="<?= __CA_URL_ROOT__ ?>/app/plugins/Articles/lib/ideesculture-editorjs-image/simple-image.css">
     <!-- <link rel="stylesheet" href="style.css"> -->
 
     <div class="container">
@@ -204,7 +204,7 @@ $is_older_format = ($blocs["time"] === null);
                     },
                     embed: Embed,
                     simpleimage: {
-                        class:SimpleImage,
+                        class:IdeescultureEditorjsImage,
                         inlineToolbar: true
                     },
                     //imageparagraph: SimpleImageLeftRight,
