@@ -1,13 +1,13 @@
-.simple-audio {
+.simple-video {
     padding: 20px 0;
     text-align:center;
 }
-.simple-audio div {
+.simple-video div {
     text-align:initial;
 }
 
-.simple-audio input,
-.simple-audio [contenteditable] {
+.simple-video input,
+.simple-video [contenteditable] {
     width: 100%;
     padding: 10px;
     border: 1px solid #e4e4e4;
@@ -18,21 +18,21 @@
     font-size: 14px;
 }
 
-.simple-audio audio {
+.simple-video audio {
     width: 100%;
     margin-bottom: 15px;
 }
 
-.simple-audio.withBorder img {
+.simple-video.withBorder img {
     border: 1px solid #e8e8eb;
 }
 
-.simple-audio.withBackground {
+.simple-video.withBackground {
     background: #eff2f5;
     padding: 10px;
 }
 
-.simple-audio.withBackground img {
+.simple-video.withBackground img {
     display: block;
     max-width: 60%;
     margin: 0 auto 15px;
@@ -52,8 +52,8 @@
     margin-left: 20px;
     margin-right: 20%;
 }
-.simple-audio.floatLeft,
-.simple-audio.floatRight {
+.simple-video.floatLeft,
+.simple-video.floatRight {
     padding: 0.4em 0 20px 0;
 }
 .ce-toolbar {
