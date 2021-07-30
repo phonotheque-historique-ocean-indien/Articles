@@ -354,8 +354,5 @@ $old_path = ucfirst($template)."s";
             list-style: circle;
         }
 
-        .article-header.level {
-            display:block !important;
-        }
     </style>
 <?php //die();

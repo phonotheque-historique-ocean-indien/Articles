@@ -72,6 +72,11 @@
                     <span class="icon"><i class="mdi mdi-lead-pencil"></i></span>&nbsp; <?php _p("Éditeur"); ?>
                 </button>
             </a>
+            <a href="/index.php/Articles/Display/Details/id/<?= $id ?>" class="active">
+                <button class="button action-btn add-new is-uppercase has-text-centered">
+                    <span class="icon"><i class="mdi mdi-eye"></i></span>&nbsp; <?php _p("Afficher"); ?>
+                </button>
+            </a>
 
             <button class="button action-btn add-new is-uppercase has-text-centered is-dark" onClick="$('#delete').show();">
                 <span class="icon"><i class="mdi mdi-delete"></i></span>&nbsp; <?php _p("Supprimer"); ?>
@@ -394,8 +399,5 @@
             list-style: circle;
         }
 
-        .article-header.level {
-            display:block !important;
-        }
     </style>
 <?php //die();
