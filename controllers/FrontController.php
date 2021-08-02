@@ -34,7 +34,10 @@ class FrontController extends ActionController
     # -------------------------------------------------------
     public function Index($type = "")
     {
-        // Detecting through Session if we are in "partie froide" or "partie chaude"
+        global $g_ui_locale;
+        
+        // Detecting through 
+        //Session if we are in "partie froide" or "partie chaude"
         session_start();
         if(filter_var($_GET["partie"], FILTER_SANITIZE_STRING) == "froide") {
             $_SESSION["partie"] = "froide";
@@ -58,10 +61,16 @@ class FrontController extends ActionController
             // Skip non published articles
             if(!$vt_page->get("access")) continue;
             
+            $keywords = explode(",",$vt_page->get("keywords"));
+            //print $g_ui_locale;
+            $langue = substr($g_ui_locale, 0, 2);
+            if(!in_array($langue,$keywords)) continue;
+
             $article = $vt_page->get("content");
             $this->view->setVar("article", $article);
             $this->view->setVar("id", $page["page_id"]);
             $this->view->setVar("template_title", $page["template_title"]);
+            $this->view->setVar("template_id", $vt_page->get("template_id"));
             $blocks .= $this->render("front/front_block_html.php", true);
             $i++;
         }
