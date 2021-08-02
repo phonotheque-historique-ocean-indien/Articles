@@ -13,10 +13,17 @@ $categ=(strtoupper($template_title));
 if(mb_strlen($content)==119) {
     $content=$content."...";
 }
+$template_id = $this->getVar("template_id");
+if($template_id == 2) {
+    $href = __CA_URL_ROOT__."/index.php/".ucfirst($template_title)."s/Show/Details/id/".$id;
+} else {
+    $href = __CA_URL_ROOT__."/index.php/Articles/Display/Details/id/".$id;
+}
+
 ?>
 <div class="column is-one-third home-articles">
     <div class="card">
-        <div class="card-image" onClick='window.location.href = "<?php _p(__CA_URL_ROOT__."/index.php/".ucfirst($template_title)."s/Show/Details/id/".$id); ?>";return false;'>
+        <div class="card-image" onClick='window.location.href = "<?= $href ?>";return false;'>
             <figure class="image is-3by2">
                 <?php 
                 	$article["image"] = str_replace("https://phoi.ideesculture.fr/", "/", $article["image"]);
@@ -29,7 +36,7 @@ if(mb_strlen($content)==119) {
             </figure>
 
         </div>
-        <div class="card-content" onClick=' window.location.href = "<?php _p(__CA_URL_ROOT__."/index.php/".ucfirst($template_title)."s/Show/Details/id/".$id); ?>";return false;'>
+        <div class="card-content" onClick=' window.location.href = "<?= $href ?>";return false;'>
             <div class="content">
                 <span class="tag is-primary <?php _p($categ); ?>"><?php _p($categ); ?></span>
                 <div class="pull-right"><?php _p($article["date"]); ?></div>
@@ -39,7 +46,7 @@ if(mb_strlen($content)==119) {
             </div>
         </div>
         <footer class="card-footer">
-            <a href="<?php _p(__CA_URL_ROOT__."/index.php/".ucfirst($template_title)."s/Show/Details/id/".$id); ?>" class="card-footer-item">Lire l'article </a>
+            <a href="<?= $href ?>" class="card-footer-item">Lire l'article </a>
         </footer>
     </div>
 </div>
