@@ -57,7 +57,7 @@
 <?php if($is_redactor): ?>
     <section class="section" id="buttons" style="padding-top: 0;padding-bottom: 0;">
         <div class="container">
-            <a href="/index.php/Contribuer/Pages/New/template_id/1">
+            <a href="/index.php/Articles/Editor/New/template_id/<?= $template_id ?>">
                 <button class="button action-btn add-new is-uppercase has-text-centered">
                     <span class="icon"><i class="mdi mdi-plus"></i></span>&nbsp; <?php _p("Nouveau"); ?>
                 </button>
@@ -84,17 +84,17 @@
 
             <div class="modal" id="delete">
                 <div class="modal-background"></div>
-                <div class="modal-card">
+                <div class="modal-card" style="margin-top:300px;">
                     <header class="modal-card-head">
-                        <p class="modal-card-title">Suppression</p>
-                        <button class="delete" aria-label="close"></button>
+                    <p class="modal-card-title">Suppression</p>
+                    <button class="delete" aria-label="close"></button>
                     </header>
                     <section class="modal-card-body">
-                        <p>Êtes vous sur de vouloir supprimer ce contenu ?</p>
+                    <p>Êtes vous sur de vouloir supprimer ce contenu ?</p>
                     </section>
                     <footer class="modal-card-foot">
-                        <a href="/index.php/Articles/Show/Delete/id/<?= $id ?>"><button class="button is-danger">Supprimer</button>
-                            <button class="button" onClick="$('#delete').hide();">Annuler</button>
+                        <a href="/index.php/Articles/Show/Delete/id/<?= $id ?>"><button class="button is-danger">Supprimer</button></a>
+                        <button class="button" onClick="$('#delete').hide();">Annuler</button>
                     </footer>
                 </div>
             </div>
@@ -308,6 +308,8 @@
             </div>
         </div>
     </div>
+    <iframe src="/upload/manual.php" style="width:100%;height:46px;"></iframe>
+
 
     <div class="field is-horizontal" style="padding-top:40px;">
         <div class="field-label is-normal">

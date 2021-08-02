@@ -52,7 +52,7 @@ $old_path = ucfirst($template)."s";
     <?php if($is_redactor): ?>
     <section class="section" id="buttons" style="padding-top: 0;padding-bottom: 0;">
         <div class="container">
-            <a href="/index.php/Contribuer/Pages/New/template_id/1">
+            <a href="/index.php/Articles/Editor/New/template_id/<?= $template_id ?>">
                 <button class="button action-btn add-new is-uppercase has-text-centered">
                     <span class="icon"><i class="mdi mdi-plus"></i></span>&nbsp; <?php _p("Nouveau"); ?>
                 </button>
@@ -67,13 +67,18 @@ $old_path = ucfirst($template)."s";
                     <span class="icon"><i class="mdi mdi-lead-pencil"></i></span>&nbsp; <?php _p("Éditeur"); ?>
                 </button>
             </a>
+            <a href="/index.php/Articles/Display/Details/id/<?= $id ?>" class="active">
+                <button class="button action-btn add-new is-uppercase has-text-centered">
+                    <span class="icon"><i class="mdi mdi-eye"></i></span>&nbsp; <?php _p("Afficher"); ?>
+                </button>
+            </a>
             <button class="button action-btn add-new is-uppercase has-text-centered is-dark" onClick="$('#delete').show();">
                 <span class="icon"><i class="mdi mdi-delete"></i></span>&nbsp; <?php _p("Supprimer"); ?>
             </button>
 
             <div class="modal" id="delete">
                 <div class="modal-background"></div>
-                <div class="modal-card">
+                <div class="modal-card" style="margin-top:300px;">
                     <header class="modal-card-head">
                     <p class="modal-card-title">Suppression</p>
                     <button class="delete" aria-label="close"></button>
@@ -82,7 +87,7 @@ $old_path = ucfirst($template)."s";
                     <p>Êtes vous sur de vouloir supprimer ce contenu ?</p>
                     </section>
                     <footer class="modal-card-foot">
-                        <a href="/index.php/Articles/Show/Delete/id/<?= $id ?>"><button class="button is-danger">Supprimer</button>
+                        <a href="/index.php/Articles/Show/Delete/id/<?= $id ?>"><button class="button is-danger">Supprimer</button></a>
                         <button class="button" onClick="$('#delete').hide();">Annuler</button>
                     </footer>
                 </div>
