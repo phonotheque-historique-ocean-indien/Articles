@@ -30,6 +30,15 @@ class EditorController extends ActionController
     }
 
     # -------------------------------------------------------
+    # Internal utilities
+    # -------------------------------------------------------
+    private function getRandomWord($len = 10) {
+        $word = array_merge(range('a', 'z'), range('A', 'Z'));
+        shuffle($word);
+        return substr(implode($word), 0, $len);
+    }
+
+    # -------------------------------------------------------
     # Functions to render views
     # -------------------------------------------------------
     public function Index($type = "")
@@ -142,7 +151,10 @@ class EditorController extends ActionController
 
     public function SaveArticleProperties() {
         $id= $this->request->getParameter("id", pInteger);
-        var_dump($_POST);
+        // var_dump($_POST);
+        // var_dump($id);
+        // die();
+
         // TODO Redirect if no ID or if no site page corresponding the ID
         $vt_page = new ca_site_pages($id);
         $vt_page->setMode(ACCESS_WRITE);
@@ -151,13 +163,14 @@ class EditorController extends ActionController
         $vt_page->set("title", $this->request->getParameter("titre", pString));
         $content=[
             "title" => $this->request->getParameter("titredisplay", pString),
-            "subtitle" => $this->request->getParameter("titredisplay", pString),
-            "author"=> $this->request->getParameter("titredisplay", pString),
-            "date"=> $this->request->getParameter("titredisplay", pString),
-            "date_from"=>$this->request->getParameter("titredisplay", pString),
-            "date_to"=>$this->request->getParameter("titredisplay", pString),
-            "image"=>$this->request->getParameter("titredisplay", pString)
+            "subtitle" => $this->request->getParameter("soustitre", pString),
+            "author"=> $this->request->getParameter("auteur", pString),
+            "date"=> $this->request->getParameter("date", pString),
+            "date_from"=>$this->request->getParameter("date_from", pString),
+            "date_to"=>$this->request->getParameter("date_to", pString),
+            "image"=>$this->request->getParameter("image", pString)
         ];
+        $vt_page->set("ca_site_pages.content", $content);
         // Note : there are two other templates var : blocks & bodytext, we don't feed them here.
         $vt_page->update();
         //$id = $vt_page->getPrimaryKey();
@@ -195,6 +208,32 @@ class EditorController extends ActionController
         $page->update();
 
         $this->redirect("/index.php/Articles/Show/Details/id/".$id);
+    }
+
+    public function New() {
+        $is_redactor = false;
+        foreach($this->getRequest()->getUser()->getUserGroups() as $group) {
+            if($group["code"] == "redactor") $is_redactor=true;
+        }
+
+        $template_id= $this->request->getParameter("template_id", pInteger);
+        $page = new ca_site_pages();
+        $page->setMode(ACCESS_WRITE);
+        $page->set(["template_id"=>$template_id, "title"=>"titre...", "description"=>"", "path"=>"/path".$this->getRandomWord(), "access"=>0 ]);
+
+        $page->insert();
+        $id=$page->getPrimaryKey();
+        
+        if($page->getErrors()) {
+            var_dump($page->getErrors());
+            die();
+        }
+        
+        $page->set("keywords", "en,fr,my,si");
+        $page->set("ca_site_pages.content", ["image"=>"/img_article_phoi.png"]);
+        $page->update();
+
+        $this->redirect("/index.php/Articles/Editor/Properties/id/".$id);
     }
 
 }
