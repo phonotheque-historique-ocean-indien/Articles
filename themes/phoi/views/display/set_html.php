@@ -8,36 +8,36 @@
 <body>
     <div class="columns is-mobile">
         <div class="column">
-            <img src="https://via.placeholder.com/250x264" />
+            <img class="placeholder" />
         </div>
         <div class="column">
-            <img src="https://via.placeholder.com/250x264" />
+            <img class="placeholder" />
         </div>
         <div class="column">
-            <img src="https://via.placeholder.com/250x264" />
+            <img class="placeholder" />
         </div>
         <div class="column">
-            <img src="https://via.placeholder.com/250x264" />
+            <img class="placeholder" />
         </div>
         <div class="column">
-            <img src="https://via.placeholder.com/250x264" />
+            <img class="placeholder" />
         </div>
     </div>
     <div class="columns is-mobile">
         <div class="column">
-            <img src="https://via.placeholder.com/250x264" />
+            <img class="placeholder" />
         </div>
         <div class="column">
-            <img src="https://via.placeholder.com/250x264" />
+            <img class="placeholder" />
         </div>
         <div class="column">
-            <img src="https://via.placeholder.com/250x264" />
+            <img class="placeholder" />
         </div>
         <div class="column">
-            <img src="https://via.placeholder.com/250x264" />
+            <img class="placeholder" />
         </div>
         <div class="column">
-            <img src="https://via.placeholder.com/250x264" />
+            <img class="placeholder" />
         </div>
     </div>
 <style>
@@ -52,5 +52,11 @@
     .subtitle {
         font-weight: 200;
     }
+    .placeholder {
+        background: rgb(49,78,89);
+        background: linear-gradient(135deg, rgba(49,78,89,1) 0%, rgba(88,141,163,1) 77%);
+        width: 100%;
+        height:110px;
+    }    
 </style>
 </body>

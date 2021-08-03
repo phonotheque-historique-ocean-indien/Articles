@@ -8,7 +8,7 @@
 <body>
     <div class="columns is-mobile">
         <div class="column is-two-fifths-mobile is-two-fifths-tablet">
-            <img src="https://via.placeholder.com/250x264" />
+            <img class="placeholder" />
         </div>
         <div class="column is-three-fifths-mobile is-three-fifths-tablet">
             <h3 class="title">Titre</h3>
@@ -28,6 +28,12 @@
     }
     .subtitle {
         font-weight: 200;
+    }
+    .placeholder {
+        background: rgb(49,78,89);
+        background: linear-gradient(135deg, rgba(49,78,89,1) 0%, rgba(88,141,163,1) 35%, rgba(88,141,163,0.9290091036414566) 42%, rgba(104,201,250,0.4640231092436975) 100%);
+        width: 100%;
+        height:250px;
     }
 </style>
 </body>
