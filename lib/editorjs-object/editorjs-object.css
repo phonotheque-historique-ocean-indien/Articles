@@ -59,3 +59,19 @@
 .ce-toolbar {
     z-index:1000;
 }
+
+[contentEditable=true]:empty:not(:focus):before{
+    content:attr(data-placeholder);
+    color:grey;
+    font-style:italic;
+}
+
+.ca-object div.preview {
+    height:270px;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.ca-object iframe.preview {
+    height:270px;
+    width:100%;
+}
