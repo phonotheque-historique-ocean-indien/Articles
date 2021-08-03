@@ -261,7 +261,8 @@ $old_path = ucfirst($template)."s";
                             quotePlaceholder: 'Enter a quote',
                             captionPlaceholder: 'Quote\'s author',
                         },
-                    },
+                    }
+                    /*,
                     caobject: {
                         class:CaObject,
                         inlineToolbar: true
@@ -269,7 +270,7 @@ $old_path = ucfirst($template)."s";
                     caset: {
                         class:CaSet,
                         inlineToolbar: true
-                    }
+                    }*/
                 },
                 data:
                     <?= $article["blocs"] ?>,
