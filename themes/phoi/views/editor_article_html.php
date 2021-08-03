@@ -261,12 +261,12 @@ $old_path = ucfirst($template)."s";
                             captionPlaceholder: 'Quote\'s author',
                         },
                     },
-                    caset: {
-                        class:CaSet,
-                        inlineToolbar: true
-                    },
                     caobject: {
                         class:CaObject,
+                        inlineToolbar: true
+                    },
+                    caset: {
+                        class:CaSet,
                         inlineToolbar: true
                     }
                 },
