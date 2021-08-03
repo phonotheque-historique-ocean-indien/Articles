@@ -260,5 +260,12 @@ class DisplayController extends ActionController
         exit();
     }
 
+    public function Set() {
+        $id = $this->request->getParameter("id", pInteger);
+        $this->view->setVar("id", $id);
+
+        print $this->render('display/set_html.php', false);
+        exit();
+    }
 }
 ?>
