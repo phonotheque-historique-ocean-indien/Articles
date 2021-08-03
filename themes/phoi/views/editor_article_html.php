@@ -23,8 +23,9 @@ if($article["date_from"]) {
 
 // Test if $article["blocs"] is in older format or ok
 $blocs = json_decode($article["blocs"], 1);
+//var_dump($blocs);die();
 $is_older_format = false;
-if($blocs !== null) {
+if(($blocs !== null) && ($blocs !== [])) {
     $is_older_format = ($blocs["time"] === null);
 } else {
     $article["blocs"]="{}";
