@@ -68,7 +68,9 @@
 
 .ca-object div.preview {
     height:270px;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: #eee;
+    line-height: 270px;
+    text-align: center;
 }
 
 .ca-object iframe.preview {
