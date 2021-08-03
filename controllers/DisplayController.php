@@ -252,5 +252,13 @@ class DisplayController extends ActionController
         $this->redirect("/index.php/Articles/Show/index");
     }
 
+    public function Object() {
+        $id = $this->request->getParameter("id", pInteger);
+        $this->view->setVar("id", $id);
+
+        print $this->render('display/object_html.php', false);
+        exit();
+    }
+
 }
 ?>
