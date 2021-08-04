@@ -94,14 +94,14 @@ $old_path = ucfirst($template)."s";
             </div>
 
             <?php if(!$access): ?>
-                <a href="/index.php/Articles/Show/Publish/id/<?= $id ?>">
+                <a href="/index.php/Articles/Display/Publish/id/<?= $id ?>">
                     <button class="button action-btn add-new is-uppercase has-text-centered">
                         <span class="icon"><i class="mdi mdi-publish"></i></span>&nbsp; <?php _p("Publier"); ?>
                     </button>
                 </a>
                 <span class="tag is-warning" style="margin-top:10px;margin-left:12px;">BROUILLON</span> 
             <?php else : ?>
-                <a href="/index.php/Articles/Show/Unpublish/id/<?= $id ?>">
+                <a href="/index.php/Articles/Display/Unpublish/id/<?= $id ?>">
                 <button class="button action-btn add-new is-uppercase has-text-centered">
                     <span class="icon"><i class="mdi mdi-lead-pencil"></i></span>&nbsp; <?php _p("Dépublier"); ?>
                 </button>
@@ -208,7 +208,24 @@ $old_path = ucfirst($template)."s";
                             <figcaption><?php print $bloc["figcaption"]; ?></figcaption>
                         </figure>
 
-                        <?php break;                        
+                        <?php break;   
+                    case "simpleimage":
+                        // var_dump($bloc);
+                        // die();
+                        $styles=$bloc["data"];
+                        unset($styles["url"]);
+                        unset($styles["content"]);
+                        $classes = "";
+                        foreach($styles as $style=>$bool) {
+                            if($bool) $classes .= $style." ";
+                        }
+                    ?>
+                        <figure class="simple-image <?= $classes ?>">
+                            <img src="<?php print $bloc["data"]["url"]; ?>" alt="<?php print $bloc["data"]["caption"]; ?>">
+                            <figcaption><?php print $bloc["caption"]; ?></figcaption>
+                        </figure>
+                    <?php
+                        break;
                     case "image-is-fullsize":
                         ?>
 
@@ -218,21 +235,11 @@ $old_path = ucfirst($template)."s";
                         </figure>
 
                         <?php break;
-                    case "two-images":
+                    case "delimiter":
                         ?>
-
-                        <div class="columns image-row two-images">
-                            <figure class="column">
-                                <img src="<?php print $bloc["image1"]; ?>" alt="Image 3">
-                                <figcaption><?php print $bloc["figcaption1"]; ?></figcaption>
-                            </figure>
-                            <figure class="column">
-                                <img src="<?php print $bloc["image2"]; ?>" alt="Image 4">
-                                <figcaption><?php print $bloc["figcaption2"]; ?></figcaption>
-                            </figure>
-                        </div>
-
-                        <?php break;
+                        <div class="delimiter"></div>
+                        <?php
+                        break;
                     case "image-with-text":
                         ?>
 
@@ -271,6 +278,23 @@ $old_path = ucfirst($template)."s";
                         </div>
                         <?php
                         break;
+                    case "simpleaudio":
+                        //var_dump($bloc);
+                        //die();
+                        ?>
+                        <article class="article-content">
+                            <img src="/img_article_phoi.png" style="height:40px" align="absmiddle">
+                            <span class="player-icons">
+                                <span class="icon">
+                                    <i class="mdi mdi-play is-large" onclick="playlistLoadTrack('<?= $bloc['data']['caption'] ?>', '<?= $bloc['data']['url'] ?>', '/img_article_phoi.png', '', '<?= $article['title'] ?>');"></i>
+                                </span>
+                                <span class="icon">
+                                    <i class="mdi mdi-stop is-large" onclick="parent.stopTrack();"></i>
+                                </span>
+                            </span> <?= $bloc['data']['caption'] ?>        
+                        </article>
+                        <?php                        
+                        break;
                     default:
                         var_dump($bloc);die();
 
@@ -307,6 +331,27 @@ $old_path = ucfirst($template)."s";
 
     .article-content li {
         padding-bottom:12px;
+    }
+    .simple-image.floatRight, .simple-image.floatLeft {
+        margin-top:0 !important;
+    }
+    .floatLeft {
+
+    }
+    .simple-image {
+        padding: 20px 0;
+        text-align: center;
+    }
+    .floatLeft {
+        float: left;
+        max-width: 325px;
+        margin-right: 20px;
+        margin-left: 20%;
+        z-index: 1;
+        padding-top:0;
+    }
+    .delimiter {
+        clear:both;
     }
 </style>
 <div>
