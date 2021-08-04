@@ -185,7 +185,9 @@ $old_path = ucfirst($template)."s";
                             print "</ol></article>\n";
                         }
                         break;
-                    case "paragraph": ?>
+                    case "paragraph":
+                    case "header":
+                    ?>
 
                         <article class="article-content">
                             <p><?php _p($bloc["data"]["text"]); ?></p>
