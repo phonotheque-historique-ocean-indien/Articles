@@ -166,7 +166,7 @@ class DisplayController extends ActionController
         $page->set("access", 1);
         $page->update();
 
-        $this->redirect("/index.php/Articles/Show/Details/id/".$id);
+        $this->redirect("/index.php/Articles/Display/Details/id/".$id);
     }
 
     public function Unpublish() {
@@ -181,7 +181,7 @@ class DisplayController extends ActionController
         $page->set("access", 0);
         $page->update();
 
-        $this->redirect("/index.php/Articles/Show/Details/id/".$id);
+        $this->redirect("/index.php/Articles/Display/Details/id/".$id);
     }
 
     public function List() {
