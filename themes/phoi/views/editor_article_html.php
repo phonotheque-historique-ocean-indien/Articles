@@ -104,14 +104,14 @@ $old_path = ucfirst($template)."s";
             </div>
 
             <?php if(!$access): ?>
-                <a href="/index.php/Articles/Show/Publish/id/<?= $id ?>">
+                <a href="/index.php/Articles/Display/Publish/id/<?= $id ?>">
                     <button class="button action-btn add-new is-uppercase has-text-centered">
                         <span class="icon"><i class="mdi mdi-publish"></i></span>&nbsp; <?php _p("Publier"); ?>
                     </button>
                 </a>
                 <span class="tag is-warning" style="margin-top:10px;margin-left:12px;">BROUILLON</span>
             <?php else : ?>
-                <a href="/index.php/Articles/Show/Unpublish/id/<?= $id ?>">
+                <a href="/index.php/Articles/Display/Unpublish/id/<?= $id ?>">
                     <button class="button action-btn add-new is-uppercase has-text-centered">
                         <span class="icon"><i class="mdi mdi-lead-pencil"></i></span>&nbsp; <?php _p("Dépublier"); ?>
                     </button>
@@ -348,19 +348,24 @@ $old_path = ucfirst($template)."s";
             font-size: 1.5rem;
             color: #232425;
             line-height: 150%;
-            padding: 3rem 0 2rem 0; }
+            padding: 3rem 0 2rem 0; 
+        }
+
         blockquote div.cdx-quote__text:first-letter {
             color: #7dafca;
             font-size: 72px;
             line-height: 100%;
             float: left;
-            padding-right: 0.1em; }
-    div.cdx-input.cdx-quote__caption {
-        display:none !important;
-    }
-    .codex-editor__redactor {
-        padding-bottom: 100px !important;
-    }
+            padding-right: 0.1em; 
+        }
+
+        div.cdx-input.cdx-quote__caption {
+            display:none !important;
+        }
+
+        .codex-editor__redactor {
+            padding-bottom: 100px !important;
+        }
 
         #audio-player,
         #audio-player html,
@@ -374,6 +379,17 @@ $old_path = ucfirst($template)."s";
         ul{
             list-style: circle;
         }
-
+        .ce-delimiter:before {
+            content:"";
+        }
+        .ce-delimiter {
+            clear:both;
+            border-top:2px solid #eeeeee;
+            line-height:10px;
+            height:10px;
+        }
+        .ce-toolbox.ce-toolbox--opened {
+            background-color: rgba(255,255,255,0.8);
+        }
     </style>
 <?php //die();
