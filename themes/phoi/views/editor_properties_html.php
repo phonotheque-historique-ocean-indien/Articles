@@ -100,14 +100,14 @@
             </div>
 
             <?php if(!$access): ?>
-                <a href="/index.php/Articles/Show/Publish/id/<?= $id ?>">
+                <a href="/index.php/Articles/Display/Publish/id/<?= $id ?>">
                     <button class="button action-btn add-new is-uppercase has-text-centered">
                         <span class="icon"><i class="mdi mdi-publish"></i></span>&nbsp; <?php _p("Publier"); ?>
                     </button>
                 </a>
                 <span class="tag is-warning" style="margin-top:10px;margin-left:12px;">BROUILLON</span>
             <?php else : ?>
-                <a href="/index.php/Articles/Show/Unpublish/id/<?= $id ?>">
+                <a href="/index.php/Articles/Display/Unpublish/id/<?= $id ?>">
                     <button class="button action-btn add-new is-uppercase has-text-centered">
                         <span class="icon"><i class="mdi mdi-lead-pencil"></i></span>&nbsp; <?php _p("Dépublier"); ?>
                     </button>
