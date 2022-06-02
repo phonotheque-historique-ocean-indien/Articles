@@ -46,25 +46,7 @@ if($template_id == 2) {
             </div>
         </div>
         <footer class="card-footer">
-            <a href="<?= $href ?>" class="card-footer-item">
-            <?php
-            switch($categ) {
-                case "PLAYLIST":
-                    print "Découvrir la playlist";
-                    break;
-                case "EXPOSITION":
-                case "EXPO":
-                    print "Afficher l'exposition";
-                    break;
-                case "PODCAST":
-                    print "Ecouter le podcast";
-                    break;
-                default : 
-                    print "Lire l'article";
-                    break;
-            }
-            ?>
-        </a>
+            <a href="<?= $href ?>" class="card-footer-item">Lire l'article </a>
         </footer>
     </div>
 </div>

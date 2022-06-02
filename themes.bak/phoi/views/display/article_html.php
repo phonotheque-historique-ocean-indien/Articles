@@ -1,22 +1,10 @@
-<?php
-
 
 $is_redactor = $this->getVar("is_redactor");
-$page = $this->getVar("page");
 $access = $this->getVar("access");
 $article = $this->getVar("article");
+$page = $this->getVar("page");
 $id = $this->getVar("id");
 $article["image"] = str_replace("https://phoi.ideesculture.fr/", "/", $article["image"]);
-
-
-// sanitize page name for browse tab
-$browser_tab_label = $article["title"];
-?>
-<script>
-    window.parent.history.pushState('', "<?= $browser_tab_label ?>", '/index.php/Articles/Display/Details/id/'.$id);
-    window.parent.document.title = "<?= $browser_tab_label ?>";
-</script>
-<?php
 
 // Check if article is programmed in the past
 $is_past = false;
@@ -33,7 +21,7 @@ if($article["date_from"]) {
     if(time() < strtotime($date_from)) $is_future = true;
 }
 
-$template_id = $page->get("template_id");
+$template_id=$page->get('template_id');
 switch($template_id) {
     case "2":
         $template = "exposition";
@@ -49,14 +37,13 @@ switch($template_id) {
         break;
 }
 $old_path = ucfirst($template)."s";
-
 ?>
 <div class="<?= $template ?>-phoi">
     <nav class="breadcrumb has-succeeds-separator" aria-label="breadcrumbs">
         <div class="container">
             <ul class="ariane">
                 <li><a href="/"><?php _p("Accueil"); ?></a></li>
-                <li><a href="/index.php/<?= $old_path ?>/Show/index"><?php _p($old_path); ?></a></li>
+                <li><a href="/index.php/<?php _p($old_path); ?>/Show/index"><?php _p($old_path); ?></a></li>
                 <li class="is-active"><a href="#" aria-current="page"><?php _p($article["title"] . " " . $article["subtitle"]); ?></a>
                 </li>
             </ul>
@@ -65,24 +52,33 @@ $old_path = ucfirst($template)."s";
     <?php if($is_redactor): ?>
     <section class="section" id="buttons" style="padding-top: 0;padding-bottom: 0;">
         <div class="container">
-            <a href="/index.php/Articles/Editor/New/template_id/1">
+            <a href="/index.php/Articles/Editor/New/template_id/<?= $template_id ?>">
                 <button class="button action-btn add-new is-uppercase has-text-centered">
                     <span class="icon"><i class="mdi mdi-plus"></i></span>&nbsp; <?php _p("Nouveau"); ?>
                 </button>
             </a>
-            <a href="/index.php/Articles/Editor/Article/id/<?= $id ?>">
-            <button class="button action-btn add-new is-uppercase has-text-centered">
-                <span class="icon"><i class="mdi mdi-lead-pencil"></i></span>&nbsp; <?php _p("Modifier"); ?>
-            </button>
+            <a href="/index.php/Articles/Editor/Properties/id/<?= $id ?>">
+                <button class="button action-btn add-new is-uppercase has-text-centered">
+                    <span class="icon"><i class="mdi mdi-playlist-edit"></i></span>&nbsp; <?php _p("Propriétés"); ?>
+                </button>
             </a>
-            
+            <a href="/index.php/Articles/Editor/Article/id/<?= $id ?>" class="active">
+                <button class="button action-btn add-new is-uppercase has-text-centered">
+                    <span class="icon"><i class="mdi mdi-lead-pencil"></i></span>&nbsp; <?php _p("Éditeur"); ?>
+                </button>
+            </a>
+            <a href="/index.php/Articles/Display/Details/id/<?= $id ?>" class="active">
+                <button class="button action-btn add-new is-uppercase has-text-centered">
+                    <span class="icon"><i class="mdi mdi-eye"></i></span>&nbsp; <?php _p("Afficher"); ?>
+                </button>
+            </a>
             <button class="button action-btn add-new is-uppercase has-text-centered is-dark" onClick="$('#delete').show();">
                 <span class="icon"><i class="mdi mdi-delete"></i></span>&nbsp; <?php _p("Supprimer"); ?>
             </button>
 
             <div class="modal" id="delete">
                 <div class="modal-background"></div>
-                <div class="modal-card">
+                <div class="modal-card" style="margin-top:300px;">
                     <header class="modal-card-head">
                     <p class="modal-card-title">Suppression</p>
                     <button class="delete" aria-label="close"></button>
@@ -91,21 +87,21 @@ $old_path = ucfirst($template)."s";
                     <p>Êtes vous sur de vouloir supprimer ce contenu ?</p>
                     </section>
                     <footer class="modal-card-foot">
-                        <a href="/index.php/<?= $old_path ?>/Show/Delete/id/<?= $id ?>"><button class="button is-danger">Supprimer</button>
+                        <a href="/index.php/Articles/Show/Delete/id/<?= $id ?>"><button class="button is-danger">Supprimer</button></a>
                         <button class="button" onClick="$('#delete').hide();">Annuler</button>
                     </footer>
                 </div>
             </div>
 
             <?php if(!$access): ?>
-                <a href="/index.php/<?= $old_path ?>/Show/Publish/id/<?= $id ?>">
+                <a href="/index.php/Articles/Display/Publish/id/<?= $id ?>">
                     <button class="button action-btn add-new is-uppercase has-text-centered">
                         <span class="icon"><i class="mdi mdi-publish"></i></span>&nbsp; <?php _p("Publier"); ?>
                     </button>
                 </a>
                 <span class="tag is-warning" style="margin-top:10px;margin-left:12px;">BROUILLON</span> 
             <?php else : ?>
-                <a href="/index.php/<?= $old_path ?>/Show/Unpublish/id/<?= $id ?>">
+                <a href="/index.php/Articles/Display/Unpublish/id/<?= $id ?>">
                 <button class="button action-btn add-new is-uppercase has-text-centered">
                     <span class="icon"><i class="mdi mdi-lead-pencil"></i></span>&nbsp; <?php _p("Dépublier"); ?>
                 </button>
@@ -141,7 +137,10 @@ $old_path = ucfirst($template)."s";
 
             <div class="article-header level">
                 <div class="level-left">
-                    <h1 class="title"><?php _p($article["title"]); ?></h1>
+                    <h1 class="title"><?php 
+                        _p($article["title"]); 
+                        MetaTagManager::setWindowTitle($article["title"]);
+                    ?></h1>
                     <h1 class="subtitle"><?php _p($article["subtitle"]); ?></h1>
                 </div>
                 <div class="level-right">
@@ -151,33 +150,53 @@ $old_path = ucfirst($template)."s";
                 </div>
             </div>
             <div>
-                <img src="<?php _p($article["image"]); ?>" alt="image 1" style="width:100%;height:auto;">
+                <img src="<?php 
+                    _p($article["image"]); 
+                    MetaTagManager::addMetaProperty("og:image", $article["image"]);
+                ?>" alt="image 1" style="width:100%;height:auto;">
             </div>
             <?php
             $blocs = json_decode($article["blocs"], true);
-
+            $blocs = $blocs["blocks"];
             foreach ($blocs as $bloc):
-            		$bloc["content"] = str_replace("\\n", "", $bloc["content"]);
-                    // convert markdown links to html links
-                    $bloc["content"] = preg_replace('/\[([^\]]+)\]\(([^\)]+)\)/', '<a href="\2">\1</a>', $bloc["content"]);
-                
-					$bloc["image"] = str_replace("https://phoi.ideesculture.fr/", "/", $bloc["image"]);
-					$bloc["image1"] = str_replace("https://phoi.ideesculture.fr/", "/", $bloc["image1"]);
-					$bloc["image2"] = str_replace("https://phoi.ideesculture.fr/", "/", $bloc["image2"]);
-            	
+                $bloc["content"] = str_replace("\\n", "", $bloc["content"]);
+                // convert markdown links to html links
+                $bloc["content"] = preg_replace('/\[([^\]]+)\]\(([^\)]+)\)/', '<a href="\2">\1</a>', $bloc["content"]);
+
+                $bloc["image"] = str_replace("https://phoi.ideesculture.fr/", "/", $bloc["image"]);
+                $bloc["image1"] = str_replace("https://phoi.ideesculture.fr/", "/", $bloc["image1"]);
+                $bloc["image2"] = str_replace("https://phoi.ideesculture.fr/", "/", $bloc["image2"]);
+
                 switch ($bloc["type"]):
-                    case "lead-dropcap": 
+                    case "quote":
                     ?>
 
                         <article class="article-content">
-                            <div class="lead-dropcap"><?php _p($bloc["content"]); ?></div>
+                            <div class="lead-dropcap"><p><strong><?php _p($bloc["data"]["text"]); ?></strong></p></div>
                         </article>
 
                         <?php break;
-                    case "paragraph": ?>
+                    case "list":
+                        if($bloc["data"]["style"]=="unordered") {
+                            print "<article class=\"article-content\"><ul>\n";
+                        } else {
+                            print "<article class=\"article-content\"><ol>\n";
+                        }
+                        foreach($bloc["data"]["items"] as $item) {
+                            print "<li>".$item."</li>";
+                        }
+                        if($bloc["data"]["style"]=="unordered") {
+                            print "</ul></article>\n";
+                        } else {
+                            print "</ol></article>\n";
+                        }
+                        break;
+                    case "paragraph":
+                    case "header":
+                    ?>
 
                         <article class="article-content">
-                            <?php _p($bloc["content"]); ?>
+                            <p><?php _p($bloc["data"]["text"]); ?></p>
                         </article>
 
                         <?php break;
@@ -197,7 +216,24 @@ $old_path = ucfirst($template)."s";
                             <figcaption><?php print $bloc["figcaption"]; ?></figcaption>
                         </figure>
 
-                        <?php break;                        
+                        <?php break;   
+                    case "simpleimage":
+                        // var_dump($bloc);
+                        // die();
+                        $styles=$bloc["data"];
+                        unset($styles["url"]);
+                        unset($styles["content"]);
+                        $classes = "";
+                        foreach($styles as $style=>$bool) {
+                            if($bool) $classes .= $style." ";
+                        }
+                    ?>
+                        <figure class="simple-image <?= $classes ?>">
+                            <img src="<?php print $bloc["data"]["url"]; ?>" alt="<?php print $bloc["data"]["caption"]; ?>">
+                            <figcaption><?php print $bloc["caption"]; ?></figcaption>
+                        </figure>
+                    <?php
+                        break;
                     case "image-is-fullsize":
                         ?>
 
@@ -207,21 +243,11 @@ $old_path = ucfirst($template)."s";
                         </figure>
 
                         <?php break;
-                    case "two-images":
+                    case "delimiter":
                         ?>
-
-                        <div class="columns image-row two-images">
-                            <figure class="column">
-                                <img src="<?php print $bloc["image1"]; ?>" alt="Image 3">
-                                <figcaption><?php print $bloc["figcaption1"]; ?></figcaption>
-                            </figure>
-                            <figure class="column">
-                                <img src="<?php print $bloc["image2"]; ?>" alt="Image 4">
-                                <figcaption><?php print $bloc["figcaption2"]; ?></figcaption>
-                            </figure>
-                        </div>
-
-                        <?php break;
+                        <div class="delimiter"></div>
+                        <?php
+                        break;
                     case "image-with-text":
                         ?>
 
@@ -251,7 +277,37 @@ $old_path = ucfirst($template)."s";
                         print $bloc["content"];
                         print "</div>";
                         break;
+                    case "simplevideo":
+                        ?>
+                        <div style="max-width:700px;margin:0 auto;">
+                            <video controls style="width:100%;">
+                                <source src="<?= $bloc["data"]["url"] ?>" type="video/mp4">
+                            </video>
+                        </div>
+                        <?php
+                        break;
+                    case "simpleaudio":
+                        //var_dump($bloc);
+                        //die();
+                        ?>
+                        <article class="article-content">
+                            <div class="simpleaudio-content">
+                                <img src="/img_article_phoi.png" style="height:40px" align="absmiddle">
+                                <span class="player-icons">
+                                    <span class="icon">
+                                        <i class="mdi mdi-play is-large" onclick="playlistLoadTrack('<?= $bloc['data']['caption'] ?>', '<?= $bloc['data']['url'] ?>', '/img_article_phoi.png', '', '<?= $article['title'] ?>');"></i>
+                                    </span>
+                                    <span class="icon">
+                                        <i class="mdi mdi-stop is-large" onclick="parent.stopTrack();"></i>
+                                    </span>
+                                </span> <?= $bloc['data']['caption'] ?>        
+                            </div>      
+                        </article>
+                        <?php                        
+                        break;
                     default:
+                        var_dump($bloc);die();
+
                         print "<div style='border:1px solid black; padding:50px;margin:20px 0;>Type JSON inconnu : {$bloc["type"]}</div>";
 
                         break;
@@ -283,8 +339,29 @@ $old_path = ucfirst($template)."s";
 	    list-style: circle;
     }
 
-    .article-header.level {
-        display:block !important;
+    .article-content li {
+        padding-bottom:12px;
+    }
+    .simple-image.floatRight, .simple-image.floatLeft {
+        margin-top:0 !important;
+    }
+    .floatLeft {
+
+    }
+    .simple-image {
+        padding: 20px 0;
+        text-align: center;
+    }
+    .floatLeft {
+        float: left;
+        max-width: 325px;
+        margin-right: 20px;
+        margin-left: 20%;
+        z-index: 1;
+        padding-top:0;
+    }
+    .delimiter {
+        clear:both;
     }
 </style>
 <div>

@@ -33,7 +33,7 @@ if($article["date_from"]) {
     <div class="card">
         <div class="card-image" onClick='window.location.href = "./Details/id/<?php _p($id); ?>"' >
             <figure class="image is-3by2">
-            <a href="/index.php/Articles/Display/Details/id/<?php _p($id); ?>">
+            <a href="./Details/id/<?php _p($id); ?>">
                 <?php 
                 	$article["image"] = str_replace("https://phoi.ideesculture.fr/", "/", $article["image"]);
                     if($article["image"]):
@@ -45,7 +45,7 @@ if($article["date_from"]) {
             </a> 
             </figure>
         </div>
-        <div class="card-content"  onClick='window.location.href = "/index.php/Articles/Display/Details/id/<?php _p($id); ?>";return false;'>
+        <div class="card-content"  onClick='window.location.href = "./Details/id/<?php _p($id); ?>";return false;'>
             <div class="content" style="height:210px">
                 <div class="card-details">
                     <p class="author" style="margin:0"><?php _p($article["author"]); ?></p>
@@ -72,7 +72,7 @@ if($article["date_from"]) {
         </div>
         <footer class="card-footer">
             <?php if(!$access): ?><span class="tag is-warning" style="margin-top:10px;margin-left:12px;">BROUILLON</span> <?php endif; ?>
-            <a href="/index.php/Articles/Display/Details/id/<?php _p($id); ?>" class="card-footer-item">
+            <a href="./Details/id/<?php _p($id); ?>" class="card-footer-item">
 <?php _p("Lire l'article"); ?> </a>
         </footer>
     </div>

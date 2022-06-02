@@ -60,8 +60,6 @@ class FrontController extends ActionController
             $vt_page = new ca_site_pages($page["page_id"]);
             // Skip non published articles
             if(!$vt_page->get("access")) continue;
-            if($vt_page->get("template_id") == 6) continue;
-
             
             $keywords = explode(",",$vt_page->get("keywords"));
             //print $g_ui_locale;

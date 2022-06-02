@@ -205,7 +205,7 @@ $old_path = ucfirst($template)."s";
     <?php if(!$is_older_format): ?>
         <div class="container">
             <div class="ce-block__content">
-                <button class="button is-primary" id="saveButton" disabled="disabled" onclick="articleSave()">Enregistrer</button>
+                <button class="button is-primary" onclick="articleSave()">Enregistrer</button>
                 <button class="button" onclick="display()">Afficher</button>
             </div>
 
@@ -292,11 +292,6 @@ $old_path = ucfirst($template)."s";
         function articleSave(){
             editor.save().then((output) => {
                 console.log('Data: ', output);
-                let cog = jQuery('<i class="mdi mdi-cogs is-large savingicon"></i>');
-                jQuery(".podcast-phoi").parent().append(cog);
-
-                $("html, body").animate({ scrollTop: 30 }, "slow");
-                jQuery(".podcast-phoi").css("opacity","0.1");
                 //console.log(JSON.stringify(output));
                 $.ajax({
                     method: "POST",
@@ -306,20 +301,13 @@ $old_path = ucfirst($template)."s";
                 })
                 .done(function( result ) {
                         console.log("result");
-                        $("html, body").animate({ scrollTop: 30 }, "slow");
-                        jQuery(".savingicon").remove();
-                        jQuery(".podcast-phoi").css("opacity","1");
-
                         console.log(output.blocks[4]);
                         //console.log(output);
                         if(result.result == "ok") {
-                            alert("Article enregistré");
+                            //alert("Article enregistré");
                         }
                 });
             }).catch((error) => {
-                alert("Erreur lors de l'enregistrement");
-                jQuery(".savingicon").remove();
-                jQuery(".podcast-phoi").css("opacity","1");
                 console.log('Saving failed: ', error)
             });
         }
@@ -329,9 +317,6 @@ $old_path = ucfirst($template)."s";
 
         jQuery(document).ready(function() {
             $(".stretched").parent().parent().addClass("ce-block--stretched");
-            setTimeout(function() {
-                $('#saveButton').prop("disabled", false);
-            }, 750);
         })
     </script>
     <style>
@@ -405,15 +390,6 @@ $old_path = ucfirst($template)."s";
         }
         .ce-toolbox.ce-toolbox--opened {
             background-color: rgba(255,255,255,0.8);
-        }
-        .savingicon {
-            position: absolute;
-            top: 270px;
-            left: 0;
-            right: 0;
-            margin: auto;
-            font-size: 120px;
-            text-align: center;
         }
     </style>
 <?php //die();

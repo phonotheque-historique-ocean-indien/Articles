@@ -1,8 +1,5 @@
-<?php
-
-
 <div class="container">
-	<H2>Last content</H2>
+	<H2>Akori</H2>
     <?php
     $blocks = $this->getVar("blocks");
     ?>

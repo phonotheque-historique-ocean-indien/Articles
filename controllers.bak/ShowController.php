@@ -96,11 +96,8 @@ class ShowController extends ActionController
         $this->render('index_html.php');
     }
 
-
     public function All($type = "")
     {
-        global $g_ui_locale;
-
         $vt_user = $this->request->getUser();
         $roles = $vt_user->getUserGroups();
 
@@ -110,46 +107,29 @@ class ShowController extends ActionController
                 $is_redactor = true;}
         }
 
-	    $all_articles = ca_site_pages::getPageList();
-	    $all_articles = array_reverse($all_articles);
-	    $articles = [];
-	    foreach ($all_articles as $testarticle) {
-	        if ($testarticle["template_title"]=="article") {
+        $all_articles = ca_site_pages::getPageList();
+        $all_articles = array_reverse($all_articles);
+        $articles = [];
+        foreach ($all_articles as $testarticle) {
+            if ($testarticle["template_title"]=="article") {
 //	            $articles = $testarticle;
 //	            array_push($articles, $testarticle);
                 $articles[] = $testarticle;
             }
         }
-	    //$articles = array_splice($articles,0, 6);
         $blocks = "";
-        $i = 1;
-        
         foreach ($articles as $art) {
+//            var_dump($art);die();
             $page = new ca_site_pages($art["page_id"]);
-            $article = $page->get("content");
             if(!$page->get("access") && !$is_redactor) continue;
-            $this->view->setVar("article", $article);
-            $keywords = explode(",",$page->get("keywords"));
-            //print $g_ui_locale;
-            $langue = substr($g_ui_locale, 0, 2);
-            if(!in_array($langue,$keywords)) continue;
 
-            if($article["date_from"] && !$is_redactor) {
-                $date_from = substr($article["date_from"], 6, 4)."-".substr($article["date_from"], 3, 2)."-".substr($article["date_from"], 0, 2);
-                // Ignore if the article is to be published in the future
-                if(time() < strtotime($date_from)) continue;
-            }
-            if($article["date_to"] && !$is_redactor) {
-                $date_to = substr($article["date_to"], 6, 4)."-".substr($article["date_to"], 3, 2)."-".substr($article["date_to"], 0, 2);
-                // Ignore if the article is to be published in the future
-                if(time() > strtotime($date_to)) continue;
-            }
-            
-            $this->view->setVar("access", $page->get("access"));
+            $article = $page->get("content");
+            $this->view->setVar("article", $article);
             $this->view->setVar("id", $art["page_id"]);
-            $this->view->setVar("is_redactor", $is_redactor);
+
+            if(!$page->get("access") && !$is_redactor) continue;
+            $this->view->setVar("access", $page->get("access"));
             $blocks .= $this->render("home_block_html.php", true);
-            $i++;
         }
         //$page = new ca_site_pages(1);
         $this->view->setVar("blocks", $blocks);
@@ -162,8 +142,24 @@ class ShowController extends ActionController
     }
 
     public function Details() {
+        $is_redactor = false;
+        foreach($this->getRequest()->getUser()->getUserGroups() as $group) {
+            if($group["code"] == "redactor") $is_redactor=true;
+        }
         $id= $this->request->getParameter("id", pInteger);
-        $this->redirect("/index.php/Articles/Display/Details/id/".$id);
+        // TODO Redirect if no ID
+        $page = new ca_site_pages($id);
+        $this->view->setVar("page", $page);
+        //$page = new ca_site_pages(1);
+        $article = $page->get("content");
+        
+        $page = new ca_site_pages($id);
+        $this->view->setVar("access", $page->get("access"));
+        
+        $this->view->setVar("article", $article);
+        $this->view->setVar("is_redactor", $is_redactor);
+        $this->view->setVar("id", $id);
+        $this->render('article_html.php');
     }
 
     public function Publish() {

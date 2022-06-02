@@ -8,16 +8,6 @@ $article = $this->getVar("article");
 $id = $this->getVar("id");
 $article["image"] = str_replace("https://phoi.ideesculture.fr/", "/", $article["image"]);
 
-
-// sanitize page name for browse tab
-$browser_tab_label = $article["title"];
-?>
-<script>
-    window.parent.history.pushState('', "<?= $browser_tab_label ?>", '/index.php/Articles/Display/Details/id/'.$id);
-    window.parent.document.title = "<?= $browser_tab_label ?>";
-</script>
-<?php
-
 // Check if article is programmed in the past
 $is_past = false;
 if($article["date_to"]) {
@@ -65,12 +55,12 @@ $old_path = ucfirst($template)."s";
     <?php if($is_redactor): ?>
     <section class="section" id="buttons" style="padding-top: 0;padding-bottom: 0;">
         <div class="container">
-            <a href="/index.php/Articles/Editor/New/template_id/1">
+            <a href="/index.php/Articles/Editor/New/template_id/<?= $template_id ?>">
                 <button class="button action-btn add-new is-uppercase has-text-centered">
                     <span class="icon"><i class="mdi mdi-plus"></i></span>&nbsp; <?php _p("Nouveau"); ?>
                 </button>
             </a>
-            <a href="/index.php/Articles/Editor/Article/id/<?= $id ?>">
+            <a href="/index.php/Contribuer/Pages/EditForm/template/article/id/<?= $id ?>">
             <button class="button action-btn add-new is-uppercase has-text-centered">
                 <span class="icon"><i class="mdi mdi-lead-pencil"></i></span>&nbsp; <?php _p("Modifier"); ?>
             </button>

@@ -1,13 +1,3 @@
-<?php
-
-// sanitize page name for browse tab
-$browser_tab_label = "PHOI";
-?>
-<script>
-    window.parent.history.pushState('', "<?= $browser_tab_label ?>", 'https://www.phoi.io/');
-    window.parent.document.title = "<?= $browser_tab_label ?>";
-</script>
-
 <div class="container">
 	<H2>Derniers contenus ajoutés</H2>
     <?php

@@ -92,7 +92,6 @@ class EditorController extends ActionController
         $this->view->setVar("page", $page);
         //$page = new ca_site_pages(1);
         $article = $page->get("content");
-        //var_dump($article);die();
 
         $page = new ca_site_pages($id);
         $this->view->setVar("access", $page->get("access"));

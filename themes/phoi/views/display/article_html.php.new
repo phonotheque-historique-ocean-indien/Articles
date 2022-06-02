@@ -1,5 +1,7 @@
 <?php
+    $url = $this->request->getRequestUrl();
 
+    $newurl = str_replace("index.php","index.html",$url);
 
 $is_redactor = $this->getVar("is_redactor");
 $access = $this->getVar("access");
@@ -13,6 +15,10 @@ $id = $this->getVar("id");
 $browser_tab_label = $article["title"];
 ?>
 <script>
+    if (!window.frameElement){
+        //console.log("newurl :" , "<?= $newurl ?>");
+        window.location.href="/<?= $newurl ?>";
+    }
     // Ajout dans l'historique
     window.parent.history.pushState('', "<?= $browser_tab_label ?>", '/index.php/Articles/Display/Details/id/<?= $id ?>');
     // Définition du titre de la page
@@ -230,15 +236,8 @@ $playlisttracks = [] ;
                             print "</ol></article>\n";
                         }
                         break;
-                    case "header":
-                        //var_dump($bloc);die();
-                        // NOTE : H2 H3 H4 is within $bloc["data"]["level"]
-                    ?>
-                        <article class="article-content">
-                            <h<?= $bloc["data"]["level"] ?>><?php _p($bloc["data"]["text"]); ?></h<?= $bloc["data"]["level"] ?>>
-                        </article>
-                        <?php break;                        
                     case "paragraph":
+                    case "header":
                     ?>
 
                         <article class="article-content">
@@ -276,7 +275,7 @@ $playlisttracks = [] ;
                     ?>
                         <figure class="simple-image <?= $classes ?>">
                             <img src="<?php print $bloc["data"]["url"]; ?>" alt="<?php print $bloc["data"]["caption"]; ?>">
-                            <figcaption><?php print $bloc["data"]["caption"]; ?></figcaption>
+                            <figcaption><?php print $bloc["caption"]; ?></figcaption>
                         </figure>
                     <?php
                         break;
@@ -407,26 +406,6 @@ $playlisttracks = [] ;
 	    list-style: circle;
     }
 
-    .article-content h2 {
-        font-family: Roboto, sans-serif !important;
-        font-weight:100 !important;
-        font-size:51px !important;
-    }
-    .article-content h3 {
-        font-family: Roboto, sans-serif !important;
-        font-weight:100 !important;
-        font-size:38px !important;
-    }
-    .article-content h4 {
-        font-family: Roboto, sans-serif !important;
-        font-weight:100 !important;
-        font-size:28px !important;
-    }
-    .article-content h5 {
-        font-family: Roboto, sans-serif !important;
-        font-weight:500 !important;
-        font-size:24px !important;
-    }        
     .article-content li {
         padding-bottom:12px;
     }
@@ -442,87 +421,22 @@ $playlisttracks = [] ;
     }
     .floatLeft {
         float: left;
+        max-width: 325px;
         margin-right: 20px;
-        margin-left: 19%;
+        margin-left: 20%;
         z-index: 1;
         padding-top:0;
     }
     .floatRight {
         float: right;
+        max-width: 325px;
         margin-left: 20px;
-        margin-right: 19%;
+        margin-right: 20%;
         z-index: 1;
         padding-top:0;
     }
-    .floatLeft img,
-    .floatRight img {
-        width:300px !important;
-        height:auto !important;
-        max-width:none !important;
-    }
-    @media screen and (min-width: 1408px) {
-        .floatLeft img,
-        .floatRight img {
-            width:320px !important;
-        }
-        .floatLeft {
-            max-width: 325px;
-        margin-left: 22%;
-        }
-        .floatRight {
-            max-width: 325px;
-        margin-right: 22%;
-        }
-        figure.simple-image.caption.floatLeft,
-        figure.simple-image.caption.floatRight {
-            padding:0 !important;
-        }
-
-
-    }
-    @media screen and (max-width: 1215px) and (min-width: 898px) {
-        .floatLeft img,
-        .floatRight img {
-            width:230px !important;
-        }
-        .floatLeft {
-            max-width: 325px;
-        margin-left: 22%;
-        margin-right: 0;
-        max-width:none !important;
-        }
-        .floatRight {
-            max-width: 325px;
-        margin-right: 22%;
-        margin-left: 0;
-        max-width:none !important;
-        }
-        figure.simple-image.caption.floatLeft,
-        figure.simple-image.caption.floatRight {
-        padding:0 !important;
-    }
-
-    }
-    @media screen and (max-width: 897px) {
-        .floatLeft img,
-        .floatRight img {
-            width:100% !important;
-            height:auto;
-        }
-        .floatLeft,
-        .floatRight {
-        float:none;
-        max-width: none;
-        padding: 0 22% 0 22% !important;
-        margin:0;
-        }
-    }
     .delimiter {
         clear:both;
-    }
-
-    .article-phoi figcaption, .exposition-phoi figcaption, .podcast-phoi figcaption, .playlist-phoi figcaption {
-        padding: 0 22% 0 22%;
     }
 </style>
 <div>
